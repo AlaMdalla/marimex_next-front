@@ -18,6 +18,8 @@ export function GoogleOneTap() {
   const [ready, setReady] = useState(false)
   const prompted = useRef(false)
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
+  const isProd = typeof window === "undefined" ? Boolean(siteUrl && !siteUrl.includes("localhost")) : window.location.hostname.endsWith("marimexste.com")
 
   // If script already present (e.g., from other components), mark ready
   useEffect(() => {
@@ -47,10 +49,13 @@ export function GoogleOneTap() {
             // Ignore; user can use button fallback on /login
           }
         },
-        // Enable auto-select where possible; keep FedCM off for compatibility
+        // Enable auto-select where possible
         auto_select: true,
-        use_fedcm_for_prompt: false,
+        // Prefer FedCM in production; fallback off in dev for compatibility
+        use_fedcm_for_prompt: isProd,
         cancel_on_tap_outside: true,
+        // Enable Safari ITP support if available (ignored if unsupported)
+        itp_support: true as any,
       })
       prompted.current = true
       g.prompt()
@@ -63,7 +68,7 @@ export function GoogleOneTap() {
     <Script
       id="google-one-tap"
       src="https://accounts.google.com/gsi/client"
-      strategy="beforeInteractive"
+      strategy="afterInteractive"
       onLoad={() => setReady(true)}
     />
   )
