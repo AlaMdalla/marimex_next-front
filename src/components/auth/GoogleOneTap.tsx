@@ -20,6 +20,28 @@ export function GoogleOneTap() {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
   const isProd = typeof window === "undefined" ? Boolean(siteUrl && !siteUrl.includes("localhost")) : window.location.hostname.endsWith("marimexste.com")
+  const allowedEnv = (process.env.NEXT_PUBLIC_GSI_ALLOWED_ORIGINS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+
+  const isOriginAllowed = () => {
+    if (typeof window === "undefined") return true
+    const origin = window.location.origin
+    const host = window.location.hostname
+    // Always allow common localhost development origins
+    if (host === "localhost" || host === "127.0.0.1") return true
+    // Allow explicit env-configured origins
+    if (allowedEnv.includes(origin)) return true
+    // Allow NEXT_PUBLIC_SITE_URL if it matches current origin
+    try {
+      if (siteUrl) {
+        const siteOrigin = new URL(siteUrl).origin
+        if (siteOrigin === origin) return true
+      }
+    } catch {}
+    return false
+  }
 
   // If script already present (e.g., from other components), mark ready
   useEffect(() => {
@@ -27,11 +49,13 @@ export function GoogleOneTap() {
   }, [])
 
   useEffect(() => {
-    if (user) return // don't prompt when signed in
+  if (user) return // don't prompt when signed in
     if (!ready || !clientId) return
     if (prompted.current) return
     // Only in top-level browsing context
     if (typeof window !== "undefined" && window.top !== window.self) return
+  // Prevent initializing on origins not whitelisted in Google console (e.g., preview URLs)
+  if (!isOriginAllowed()) return
 
     const g = window.google?.accounts?.id
     if (!g) return

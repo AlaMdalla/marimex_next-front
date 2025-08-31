@@ -5,6 +5,7 @@ const nextConfig = {
       { protocol: "https", hostname: "via.placeholder.com" },
       { protocol: "https", hostname: "marimexbackend.vercel.app" },
       { protocol: "https", hostname: "i.postimg.cc" },
+  { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
   experimental: {

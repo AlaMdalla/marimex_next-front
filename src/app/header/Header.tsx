@@ -40,6 +40,11 @@ export function Header() {
   }, [])
 
   const items = navItems(locale)
+  const menuItems = React.useMemo(() => {
+    const base = [...items]
+    if (user?.isAdmin) base.unshift({ href: "/admin", label: "Admin" })
+    return base
+  }, [items, user?.isAdmin])
 
   const allLocales: { code: Locale; label: string; flag: string }[] = [
     { code: "en", label: "English", flag: "🇬🇧" },
@@ -102,7 +107,7 @@ export function Header() {
               </div>
               {/* Mobile Navigation */}
               <nav className="mt-6 flex flex-col space-y-2">
-                {items.map((item) => {
+                {menuItems.map((item) => {
                   const active = pathname === item.href
                   return (
                     <Link
@@ -189,9 +194,9 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <NavigationMenu>
+      <NavigationMenu>
             <NavigationMenuList className="flex items-center gap-2">
-              {items.map((item) => {
+        {menuItems.map((item) => {
                 const active = pathname === item.href
                 return (
                   <NavigationMenuItem key={item.href}>

@@ -65,6 +65,24 @@ export async function submitOrder(payload: any) {
   return res.data;
 }
 
+// Orders (commandes) admin API
+export async function getAllCommandes() {
+  // Backend expects /getAll for listing all commandes
+  const res = await axios.get(`${COMMANDE}/getAll`)
+  return res.data
+}
+
+export async function deleteCommande(id: string | number) {
+  const res = await axios.delete(`${COMMANDE}/${id}`)
+  return res.data
+}
+
+// Best-effort: update status to validated; adjust server route if needed
+export async function validateCommande(id: string | number) {
+  const res = await axios.patch(`${COMMANDE}/${id}`, { status: "validated" })
+  return res.data
+}
+
 // Comments API (mirrors Angular service)
 export async function getCommentsByMarbleId(marbleId: string): Promise<Comment[]> {
   const { data } = await axios.get<Comment[]>(`${COMMENTS_URL}/marble/${marbleId}`)

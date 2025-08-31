@@ -18,6 +18,25 @@ export function GoogleSignIn() {
   const [scriptReady, setScriptReady] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+  const allowedEnv = (process.env.NEXT_PUBLIC_GSI_ALLOWED_ORIGINS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
+  const isOriginAllowed = () => {
+    if (typeof window === "undefined") return true
+    const origin = window.location.origin
+    const host = window.location.hostname
+    if (host === "localhost" || host === "127.0.0.1") return true
+    if (allowedEnv.includes(origin)) return true
+    try {
+      if (siteUrl) {
+        const siteOrigin = new URL(siteUrl).origin
+        if (siteOrigin === origin) return true
+      }
+    } catch {}
+    return false
+  }
   // If the script was already loaded earlier in the app, mark ready immediately
   useEffect(() => {
     if (typeof window !== "undefined" && window.google?.accounts?.id) {
@@ -44,6 +63,14 @@ export function GoogleSignIn() {
     if (!scriptReady) return
     if (!clientId) {
       setErr("Missing NEXT_PUBLIC_GOOGLE_CLIENT_ID env var")
+      return
+    }
+    if (!isOriginAllowed()) {
+      // Don't initialize on disallowed origins (e.g., vercel preview) to avoid noisy errors
+      if (typeof window !== "undefined") {
+        // Surface a small message so we know why button didn't render
+        setErr("Google Sign-In disabled for this origin. Configure NEXT_PUBLIC_GSI_ALLOWED_ORIGINS.")
+      }
       return
     }
 
