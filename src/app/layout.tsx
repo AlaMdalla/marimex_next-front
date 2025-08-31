@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 // Use a single, consistent font across the app (Lexend). Variable import includes all weights/styles.
 import "./globals.css";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Header } from "./header/Header";
 import { cookies } from "next/headers";
 import type { Locale } from "@/i18n";
@@ -9,6 +8,7 @@ import { Providers } from "./providers";
 import { GoogleOneTap } from "@/components/auth/GoogleOneTap";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:4200"),
   title: {
     default: "Marimex — Premium Marble in Tunisia",
     template: "%s — Marimex"
@@ -30,9 +30,7 @@ export const metadata: Metadata = {
     description: "Premium marble products and expert craft.",
     images: ["/images/marimex.jpg"]
   },
-  icons: {
-    icon: "/favicon.ico"
-  },
+  // Using default favicon.ico
   alternates: {
     canonical: "/"
   }
@@ -52,6 +50,24 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://accounts.google.com" />
         <link rel="preconnect" href="https://ssl.gstatic.com" crossOrigin="anonymous" />
+        {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? (
+          <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION} />
+        ) : null}
+        {/* Organization structured data for better knowledge panel & branding */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Marimex",
+              url: process.env.NEXT_PUBLIC_SITE_URL || "https://marimex.vercel.app",
+              logo: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimex.vercel.app") + "/images/marimex.jpg",
+              sameAs: []
+            })
+          }}
+        />
       </head>
       <body className="font-sans antialiased bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors">
         <Providers>
