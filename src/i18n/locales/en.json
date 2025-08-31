@@ -1,0 +1,182 @@
+{
+  "brand": "Marimex",
+  "nav": {
+    "about": "About",
+    "contact": "Contact"
+  },
+  "common": {
+    "backToProducts": "Back to Products",
+    "products": "Products",
+    "quickView": "Quick View",
+    "view": "View",
+    "addToCart": "Add to Cart",
+    "retry": "Retry",
+    "searchPlaceholder": "Search products...",
+    "filters": "Filters:",
+    "allPrices": "All Prices",
+    "under25": "Under 25 Dinars",
+    "between25_50": "25 - 50 Dinars",
+    "over50": "Over 50 Dinars",
+    "sortByName": "Sort by Name",
+    "priceLow": "Price: Low to High",
+    "priceHigh": "Price: High to Low",
+    "previous": "Previous",
+    "next": "Next",
+    "youMightAlsoLike": "You Might Also Like",
+    "viewAllProducts": "View All Products",
+    "notFoundTitle": "Product Not Found",
+    "notFoundDesc": "The product you're looking for doesn't exist or may have been removed.",
+    "description": "Description",
+    "keyFeatures": "Key Features",
+    "freeShipping": "Free Shipping",
+    "warranty": "Warranty",
+    "easyReturns": "Easy Returns",
+    "productSpecifications": "Product Specifications",
+    "showing": "Showing",
+    "of": "of",
+  "productsWord": "products",
+  "productsHeroDescription": "Discover our carefully curated selection of premium marbles, each piece crafted with precision and artistry",
+  "item": "item",
+  "items": "items"
+  }
+  ,
+  "home": {
+    "heroTitle": "Premium Marble. Expert Craft.",
+    "heroSubtitle": "Elevate your spaces with carefully selected marble products.",
+    "ctaBrowse": "Browse Products",
+    "ctaExplore": "Explore Collection",
+    "featuredTitle": "Featured Products",
+    "viewAll": "View all",
+    "noProducts": "No products available yet.",
+    "browseByTags": "Browse by tags",
+    "noTags": "No tags available."
+  }
+  ,
+  "cart": {
+    "yourCart": "Your Cart",
+    "back": "Back to Products",
+    "inYourCart": "in your cart",
+    "itemsTitle": "Cart Items",
+    "perUnit": "/ unit",
+    "empty": {
+      "title": "Your Cart is Empty",
+      "subtitle": "No items added yet — let's find your perfect piece.",
+      "cta": "Browse Collection"
+    },
+    "features": {
+      "freeDelivery": "Free Delivery",
+      "qualityGuarantee": "Quality Guarantee",
+      "easyReturns": "Easy Returns"
+    },
+    "summary": {
+      "title": "Order Summary",
+      "subtotal": "Subtotal",
+      "estimatedTotal": "Estimated Total",
+      "shippingNote": "Delivery fees calculated at checkout"
+    },
+    "customer": {
+      "fullName": "Full Name",
+      "phoneNumber": "Phone Number",
+      "namePlaceholder": "Your full name",
+      "phonePlaceholder": "+216 (___) ___-____"
+    },
+    "address": {
+      "label": "Delivery Address",
+      "selectLocation": "Select your location"
+    },
+    "actions": {
+      "checkout": "Place Order",
+      "continueShopping": "Continue Shopping",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "processing": "Processing..."
+    },
+    "mapModal": {
+      "title": "Select your Location",
+      "description": "Click on the map to set your delivery address",
+      "placeholder": "Interactive map integration here",
+      "useThis": "Use this location"
+    },
+    "confirmModal": {
+      "title": "Confirm Order",
+      "description": "Review your order details before confirming",
+      "summaryTitle": "Your order summary",
+      "customerInfo": "Customer Information",
+      "deliveryAddress": "Delivery Address",
+      "quantity": "Quantity:",
+      "totalLabel": "Estimated Total:"
+    },
+    "alerts": {
+      "required": "Please fill in all required fields",
+      "confirmed": "Order confirmed! We'll contact you soon."
+    }
+  }
+  ,
+  "about": {
+    "title": "About Marimex",
+    "subtitle": "We craft premium marble solutions for homes and businesses in Tunisia.",
+    "missionTitle": "Our Mission",
+    "missionDesc": "Deliver exceptional quality, fair pricing, and reliable service—with a local touch.",
+    "valuesTitle": "What we value",
+    "values": {
+      "quality": "Quality materials",
+      "service": "Trusted service",
+      "craft": "Expert craftsmanship"
+    },
+    "ctaTitle": "Explore our products",
+    "ctaButton": "View Products"
+  }
+  ,
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We’re here to help with quotes, orders, and product questions.",
+    "reachUs": "Reach us",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "formTitle": "Send us a message",
+    "fields": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "you@example.com",
+      "phonePlaceholder": "+216 (___) ___-____",
+      "messagePlaceholder": "How can we help?"
+    },
+    "send": "Send Message"
+  }
+  ,
+  "aboutPage": {
+    "heroTitle": "About Marimex",
+    "heroSubtitle": "Crafting exceptional products with passion and precision since 2010.",
+    "storyTitle": "Our Story",
+    "story": {
+      "p1": "Founded in 2010, Marimex began as a small workshop with a big vision. Our founder, Issam Karoui, believed in creating products that combined functionality with beautiful design, all while maintaining the highest standards of quality.",
+      "p2": "What started as a passion project has now grown into a respected brand known for its commitment to craftsmanship and innovation. Today, we continue to push boundaries while staying true to our core values of excellence, sustainability, and customer satisfaction.",
+      "p3": "Over the years, our collections have evolved, but our dedication to creating exceptional products remains unchanged. Each item is thoughtfully designed and meticulously crafted to ensure it not only meets but exceeds your expectations."
+    },
+    "missionTitle": "Our Mission & Vision",
+    "mission": {
+      "p1": "At Marimex, our mission is to enrich people's lives through thoughtfully designed products that combine beauty, functionality, and sustainability. We believe that the objects we surround ourselves with should not only serve a purpose but also bring joy and inspiration.",
+      "p2": "Our vision is to become a global leader in our industry, recognized for our innovative designs, exceptional quality, and commitment to responsible business practices. We aim to create a world where mindful consumption and appreciation for craftsmanship go hand in hand.",
+      "p3": "Every day, we work towards these goals by investing in our people, refining our processes, and listening closely to our customers. We're driven by the belief that even the smallest details matter, and it's this attention to detail that sets Marimex apart."
+    },
+    "valuesTitle": "Our Core Values",
+    "values": {
+      "quality": {
+        "title": "Quality Craftsmanship",
+        "desc": "We believe in creating products that stand the test of time, focusing on exceptional materials and meticulous attention to detail in every piece we make."
+      },
+      "innovation": {
+        "title": "Sustainable Innovation",
+        "desc": "We continuously explore new ideas and technologies to improve our products while minimizing our environmental impact and promoting responsible consumption."
+      },
+      "customer": {
+        "title": "Customer Dedication",
+        "desc": "We put our customers at the heart of everything we do, striving to exceed expectations and build lasting relationships based on trust and exceptional service."
+      }
+    }
+  }
+}

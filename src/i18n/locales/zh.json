@@ -1,0 +1,118 @@
+{
+  "brand": "Marimex",
+  "nav": {"about": "关于我们", "contact": "联系"},
+  "common": {
+    "backToProducts": "返回产品",
+    "products": "产品",
+    "quickView": "快速查看",
+    "view": "查看",
+    "addToCart": "加入购物车",
+    "retry": "重试",
+    "searchPlaceholder": "搜索产品...",
+    "filters": "筛选：",
+    "allPrices": "全部价格",
+    "under25": "低于 25 第纳尔",
+    "between25_50": "25 - 50 第纳尔",
+    "over50": "高于 50 第纳尔",
+    "sortByName": "按名称排序",
+    "priceLow": "价格：从低到高",
+    "priceHigh": "价格：从高到低",
+    "previous": "上一页",
+    "next": "下一页",
+    "youMightAlsoLike": "你可能还喜欢",
+    "viewAllProducts": "查看所有产品",
+    "notFoundTitle": "未找到产品",
+    "notFoundDesc": "您寻找的产品不存在或已被移除。",
+    "description": "描述",
+    "keyFeatures": "关键特性",
+    "freeShipping": "免费配送",
+    "warranty": "保修",
+    "easyReturns": "轻松退货",
+    "productSpecifications": "产品规格",
+    "showing": "正在显示",
+    "of": "共",
+    "productsWord": "个产品",
+    "productsHeroDescription": "探索我们精心甄选的高端大理石产品，每一件都凝聚着匠心与艺术",
+    "item": "件",
+    "items": "件"
+  },
+  "home": {
+    "heroTitle": "高端大理石 · 匠心工艺",
+    "heroSubtitle": "以精心甄选的大理石产品，焕新你的空间。",
+    "ctaBrowse": "浏览产品",
+    "ctaExplore": "探索系列",
+    "featuredTitle": "精选产品",
+    "viewAll": "查看全部",
+    "noProducts": "暂无产品。",
+    "browseByTags": "按标签浏览",
+    "noTags": "暂无标签。"
+  },
+  "cart": {
+    "yourCart": "购物车",
+    "back": "返回产品",
+    "inYourCart": "在你的购物车中",
+    "itemsTitle": "购物车商品",
+    "perUnit": "/ 单位",
+    "empty": {"title": "你的购物车是空的", "subtitle": "还没有添加商品——一起去发现心仪之选。", "cta": "浏览系列"},
+    "features": {"freeDelivery": "免费配送", "qualityGuarantee": "质量保证", "easyReturns": "轻松退货"},
+    "summary": {"title": "订单摘要", "subtotal": "小计", "estimatedTotal": "预计总计", "shippingNote": "运费将在结算时计算"},
+    "customer": {"fullName": "姓名", "phoneNumber": "电话", "namePlaceholder": "你的姓名", "phonePlaceholder": "+216 (___) ___-____"},
+    "address": {"label": "收货地址", "selectLocation": "选择你的位置"},
+    "actions": {"checkout": "下单", "continueShopping": "继续购物", "cancel": "取消", "confirm": "确认", "processing": "处理中..."},
+    "mapModal": {"title": "选择你的位置", "description": "点击地图设置收货地址", "placeholder": "此处为交互式地图集成", "useThis": "使用此位置"},
+    "confirmModal": {"title": "确认订单", "description": "确认前请检查订单详情", "summaryTitle": "你的订单摘要", "customerInfo": "客户信息", "deliveryAddress": "收货地址", "quantity": "数量：", "totalLabel": "预计总计："},
+    "alerts": {"required": "请填写所有必填项", "confirmed": "订单已确认！我们会尽快联系你。"}
+  },
+  "about": {
+    "title": "关于 Marimex",
+    "subtitle": "为突尼斯的家庭与企业提供高端大理石解决方案。",
+    "missionTitle": "我们的使命",
+    "missionDesc": "以公平价格与可靠服务，提供卓越品质，并融入本地关怀。",
+    "valuesTitle": "我们的价值观",
+    "values": {"quality": "优质材料", "service": "值得信赖的服务", "craft": "专业工艺"},
+    "ctaTitle": "浏览我们的产品",
+    "ctaButton": "查看产品"
+  },
+  "aboutPage": {
+    "heroTitle": "关于 Marimex",
+    "heroSubtitle": "自 2010 年以来，以热爱与精准打造卓越产品。",
+    "storyTitle": "我们的故事",
+    "story": {
+      "p1": "Marimex 成立于 2010 年，始于一个怀抱远大愿景的小型工坊。创始人 Issam Karoui 坚信产品应兼具功能与美感，并保持最高品质标准。",
+      "p2": "从热爱出发，我们成长为以工艺与创新著称的品牌。如今，我们在坚守卓越、可持续与客户满意的核心价值观的同时，不断突破边界。",
+      "p3": "多年来系列不断进化，但我们对卓越的追求始终如一。每件产品都经过用心设计与精细制作，力求超越你的期待。"
+    },
+    "missionTitle": "我们的使命与愿景",
+    "mission": {
+      "p1": "我们的使命是通过兼具美感、功能与可持续性的用心产品，丰富人们的生活。",
+      "p2": "我们的愿景是成为行业全球领导者，以创新设计、卓越品质与负责任的商业实践受到认可。",
+      "p3": "每天我们投资于团队、优化流程、倾听客户——相信细节决定成败，这正是 Marimex 的不同之处。"
+    },
+    "valuesTitle": "我们的核心价值",
+    "values": {
+      "quality": {"title": "品质工艺", "desc": "以优质材料与精益求精的细节，打造经久耐用的产品。"},
+      "innovation": {"title": "可持续创新", "desc": "持续探索新理念与技术，提升产品并减少环境影响。"},
+      "customer": {"title": "客户至上", "desc": "以客户为中心，超越期待，建立基于信任的长期关系。"}
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "欢迎咨询报价、下单与产品问题，我们乐意提供帮助。",
+    "reachUs": "联系方式",
+    "address": "地址",
+    "phone": "电话",
+    "email": "邮箱",
+    "formTitle": "发送消息",
+    "fields": {
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话",
+      "message": "留言",
+      "namePlaceholder": "你的姓名",
+      "emailPlaceholder": "you@example.com",
+      "phonePlaceholder": "+216 (___) ___-____",
+      "messagePlaceholder": "我们能如何帮助你？"
+    },
+    "send": "发送"
+  }
+}

@@ -16,9 +16,28 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+### Google Login and Maps setup
+
+This project uses Google Identity Services for Login with Google and Google Maps JavaScript + Places for location picking on the cart page.
+
+1) Copy `.env.example` to `.env.local` and fill the values:
+
+```
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-maps-api-key
+```
+
+2) In the Google Cloud Console:
+ - For Google Identity: create an OAuth 2.0 Client ID (Web), add your local and prod origins to Authorized JavaScript origins.
+ - For Maps: enable Maps JavaScript API and Places API; restrict the key to your domain(s).
+
+3) Restart the dev server after changing env vars.
+
+Once configured, the Google button appears on `/login`, and the Cart map modal supports place search and selection.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses a single global font: Lexend (via `@fontsource/lexend/variable.css`). The base `font-sans` maps to Lexend so all text renders consistently.
 
 ## Learn More
 

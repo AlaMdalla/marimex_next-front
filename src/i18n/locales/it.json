@@ -1,0 +1,164 @@
+{
+  "brand": "Marimex",
+  "nav": {
+    "about": "Chi siamo",
+    "contact": "Contatti"
+  },
+  "home": {
+    "heroTitle": "Marmo premium. Maestria artigiana.",
+    "heroSubtitle": "Valorizza i tuoi spazi con prodotti in marmo selezionati con cura.",
+    "ctaBrowse": "Sfoglia prodotti",
+    "ctaExplore": "Esplora la collezione",
+    "featuredTitle": "Prodotti in evidenza",
+    "viewAll": "Vedi tutto",
+    "noProducts": "Nessun prodotto disponibile al momento.",
+    "browseByTags": "Sfoglia per tag",
+    "noTags": "Nessun tag disponibile."
+  },
+  "common": {
+    "backToProducts": "Torna ai prodotti",
+    "products": "Prodotti",
+    "quickView": "Anteprima",
+    "view": "Vedi",
+    "addToCart": "Aggiungi al carrello",
+    "retry": "Riprova",
+    "searchPlaceholder": "Cerca prodotti...",
+    "filters": "Filtri:",
+    "allPrices": "Tutti i prezzi",
+    "under25": "Sotto 25 Dinars",
+    "between25_50": "25 - 50 Dinars",
+    "over50": "Oltre 50 Dinars",
+    "sortByName": "Ordina per nome",
+    "priceLow": "Prezzo: dal più basso al più alto",
+    "priceHigh": "Prezzo: dal più alto al più basso",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "youMightAlsoLike": "Potrebbe piacerti anche",
+    "viewAllProducts": "Vedi tutti i prodotti",
+    "notFoundTitle": "Prodotto non trovato",
+    "notFoundDesc": "Il prodotto che stai cercando non esiste o è stato rimosso.",
+    "description": "Descrizione",
+    "keyFeatures": "Caratteristiche principali",
+    "freeShipping": "Spedizione gratuita",
+    "warranty": "Garanzia",
+    "easyReturns": "Resi facili",
+    "productSpecifications": "Specifiche del prodotto",
+    "showing": "Mostrando",
+    "of": "di",
+    "productsWord": "prodotti",
+    "productsHeroDescription": "Scopri la nostra selezione curata di marmi di alta qualità, ogni pezzo realizzato con precisione e maestria",
+    "item": "articolo",
+    "items": "articoli"
+  },
+  "cart": {
+    "yourCart": "Il tuo carrello",
+    "back": "Torna ai prodotti",
+    "inYourCart": "nel tuo carrello",
+    "itemsTitle": "Articoli nel carrello",
+    "perUnit": "/ unità",
+    "empty": {
+      "title": "Il tuo carrello è vuoto",
+      "subtitle": "Nessun articolo aggiunto — troviamo insieme il pezzo perfetto.",
+      "cta": "Esplora la collezione"
+    },
+    "features": {
+      "freeDelivery": "Consegna gratuita",
+      "qualityGuarantee": "Garanzia di qualità",
+      "easyReturns": "Resi facili"
+    },
+    "summary": {
+      "title": "Riepilogo ordine",
+      "subtotal": "Subtotale",
+      "estimatedTotal": "Totale stimato",
+      "shippingNote": "Costi di spedizione calcolati al checkout"
+    },
+    "customer": {
+      "fullName": "Nome e cognome",
+      "phoneNumber": "Numero di telefono",
+      "namePlaceholder": "Il tuo nome completo",
+      "phonePlaceholder": "+216 (___) ___-____"
+    },
+    "address": {
+      "label": "Indirizzo di consegna",
+      "selectLocation": "Seleziona la tua posizione"
+    },
+    "actions": {
+      "checkout": "Effettua l'ordine",
+      "continueShopping": "Continua lo shopping",
+      "cancel": "Annulla",
+      "confirm": "Conferma",
+      "processing": "Elaborazione..."
+    },
+    "mapModal": {
+      "title": "Seleziona la tua posizione",
+      "description": "Clicca sulla mappa per impostare l'indirizzo di consegna",
+      "placeholder": "Integrazione mappa interattiva qui",
+      "useThis": "Usa questa posizione"
+    },
+    "confirmModal": {
+      "title": "Conferma ordine",
+      "description": "Controlla i dettagli dell'ordine prima di confermare",
+      "summaryTitle": "Riepilogo del tuo ordine",
+      "customerInfo": "Informazioni cliente",
+      "deliveryAddress": "Indirizzo di consegna",
+      "quantity": "Quantità:",
+      "totalLabel": "Totale stimato:"
+    },
+    "alerts": {
+      "required": "Compila tutti i campi obbligatori",
+      "confirmed": "Ordine confermato! Ti contatteremo a breve."
+    }
+  },
+  "about": {
+    "title": "Chi è Marimex",
+    "subtitle": "Realizziamo soluzioni in marmo premium per case e aziende in Tunisia.",
+    "missionTitle": "La nostra missione",
+    "missionDesc": "Qualità eccezionale, prezzi corretti e servizio affidabile — con un tocco locale.",
+    "valuesTitle": "I nostri valori",
+    "values": {"quality": "Materiali di qualità", "service": "Servizio affidabile", "craft": "Maestria artigianale"},
+    "ctaTitle": "Esplora i nostri prodotti",
+    "ctaButton": "Vedi prodotti"
+  },
+  "aboutPage": {
+    "heroTitle": "Chi è Marimex",
+    "heroSubtitle": "Prodotti d’eccellenza, creati con passione e precisione dal 2010.",
+    "storyTitle": "La nostra storia",
+    "story": {
+      "p1": "Fondata nel 2010, Marimex è nata come piccolo laboratorio con una grande visione. Il fondatore, Issam Karoui, credeva in prodotti che unissero funzionalità e bel design, mantenendo i più alti standard di qualità.",
+      "p2": "Da progetto di passione a brand riconosciuto per artigianalità e innovazione. Oggi continuiamo a spingerci oltre, restando fedeli ai valori di eccellenza, sostenibilità e soddisfazione del cliente.",
+      "p3": "Negli anni le collezioni sono evolute, ma la nostra dedizione alla qualità non è cambiata. Ogni pezzo è pensato e realizzato con cura per superare le aspettative."
+    },
+    "missionTitle": "Missione & Visione",
+    "mission": {
+      "p1": "La nostra missione è arricchire la vita delle persone con prodotti pensati che uniscono bellezza, funzionalità e sostenibilità.",
+      "p2": "La nostra visione è diventare un leader globale, riconosciuti per design innovativi, qualità eccellente e pratiche responsabili.",
+      "p3": "Ogni giorno investiamo nelle persone, miglioriamo i processi e ascoltiamo i clienti: i dettagli fanno la differenza."
+    },
+    "valuesTitle": "I nostri valori fondamentali",
+    "values": {
+      "quality": {"title": "Artigianato di qualità", "desc": "Prodotti fatti per durare, con materiali d’eccellenza e cura dei dettagli."},
+      "innovation": {"title": "Innovazione sostenibile", "desc": "Nuove idee e tecnologie per migliorare i prodotti e ridurre l’impatto ambientale."},
+      "customer": {"title": "Dedizione al cliente", "desc": "Clienti al centro: superare le aspettative e costruire fiducia duratura."}
+    }
+  },
+  "contact": {
+    "title": "Contattaci",
+    "subtitle": "Siamo qui per aiutarti con preventivi, ordini e domande sui prodotti.",
+    "reachUs": "I nostri contatti",
+    "address": "Indirizzo",
+    "phone": "Telefono",
+    "email": "Email",
+    "formTitle": "Inviaci un messaggio",
+    "fields": {
+      "name": "Nome e cognome",
+      "email": "Email",
+      "phone": "Telefono",
+      "message": "Messaggio",
+      "namePlaceholder": "Il tuo nome completo",
+      "emailPlaceholder": "tu@example.com",
+      "phonePlaceholder": "+216 (___) ___-____",
+      "messagePlaceholder": "Come possiamo aiutarti?"
+    },
+    "send": "Invia"
+  }
+}

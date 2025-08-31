@@ -1,0 +1,182 @@
+{
+  "brand": "Marimex",
+  "nav": {
+    "about": "À propos",
+    "contact": "Contact"
+  },
+  "common": {
+    "backToProducts": "Retour aux produits",
+    "products": "Produits",
+    "quickView": "Aperçu",
+    "view": "Voir",
+    "addToCart": "Ajouter au panier",
+    "retry": "Réessayer",
+    "searchPlaceholder": "Rechercher des produits...",
+    "filters": "Filtres :",
+    "allPrices": "Tous les prix",
+    "under25": "Moins de 25 Dinars",
+    "between25_50": "25 - 50 Dinars",
+    "over50": "Plus de 50 Dinars",
+    "sortByName": "Trier par nom",
+    "priceLow": "Prix : du plus bas au plus élevé",
+    "priceHigh": "Prix : du plus élevé au plus bas",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "youMightAlsoLike": "Vous pourriez aussi aimer",
+    "viewAllProducts": "Voir tous les produits",
+    "notFoundTitle": "Produit introuvable",
+    "notFoundDesc": "Le produit que vous recherchez n'existe pas ou a été supprimé.",
+    "description": "Description",
+    "keyFeatures": "Caractéristiques clés",
+    "freeShipping": "Livraison gratuite",
+    "warranty": "Garantie",
+    "easyReturns": "Retours faciles",
+    "productSpecifications": "Spécifications du produit",
+    "showing": "Affichage",
+    "of": "sur",
+  "productsWord": "produits",
+  "productsHeroDescription": "Découvrez notre sélection soigneusement choisie de marbres haut de gamme, chaque pièce façonnée avec précision et savoir-faire",
+  "item": "article",
+  "items": "articles"
+  }
+  ,
+  "home": {
+    "heroTitle": "Marbre premium. Savoir‑faire expert.",
+    "heroSubtitle": "Sublimez vos espaces avec une sélection soignée de produits en marbre.",
+    "ctaBrowse": "Parcourir les produits",
+    "ctaExplore": "Explorer la collection",
+    "featuredTitle": "Produits à la une",
+    "viewAll": "Voir tout",
+    "noProducts": "Aucun produit pour le moment.",
+    "browseByTags": "Parcourir par tags",
+    "noTags": "Aucun tag disponible."
+  }
+  ,
+  "cart": {
+    "yourCart": "Votre Panier",
+    "back": "Retour aux Produits",
+    "inYourCart": "dans votre panier",
+    "itemsTitle": "Articles du Panier",
+    "perUnit": "/ unité",
+    "empty": {
+      "title": "Votre Panier Est Vide",
+      "subtitle": "Aucun article ajouté encore - trouvons votre pièce parfaite.",
+      "cta": "Explorer la Collection"
+    },
+    "features": {
+      "freeDelivery": "Livraison Gratuite",
+      "qualityGuarantee": "Garantie Qualité",
+      "easyReturns": "Retours Faciles"
+    },
+    "summary": {
+      "title": "Récapitulatif de Commande",
+      "subtotal": "Sous-total",
+      "estimatedTotal": "Total Estimé",
+      "shippingNote": "Frais de livraison calculés à la validation"
+    },
+    "customer": {
+      "fullName": "Nom Complet",
+      "phoneNumber": "Numéro de Téléphone",
+      "namePlaceholder": "Votre nom complet",
+      "phonePlaceholder": "+216 (___) ___-____"
+    },
+    "address": {
+      "label": "Adresse de Livraison",
+      "selectLocation": "Sélectionner votre localisation"
+    },
+    "actions": {
+      "checkout": "Passer la Commande",
+      "continueShopping": "Continuer vos Achats",
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "processing": "Traitement..."
+    },
+    "mapModal": {
+      "title": "Sélectionner votre Localisation",
+      "description": "Cliquez sur la carte pour définir votre adresse de livraison",
+      "placeholder": "Intégration de carte interactive ici",
+      "useThis": "Utiliser cette localisation"
+    },
+    "confirmModal": {
+      "title": "Confirmer la Commande",
+      "description": "Vérifiez les détails de votre commande avant de confirmer",
+      "summaryTitle": "Résumé de votre commande",
+      "customerInfo": "Informations Client",
+      "deliveryAddress": "Adresse de Livraison",
+      "quantity": "Quantité:",
+      "totalLabel": "Total Estimé:"
+    },
+    "alerts": {
+      "required": "Veuillez remplir tous les champs requis",
+      "confirmed": "Commande confirmée ! Nous vous contacterons bientôt."
+    }
+  }
+  ,
+  "about": {
+    "title": "À propos de Marimex",
+    "subtitle": "Nous créons des solutions en marbre haut de gamme pour les foyers et les entreprises en Tunisie.",
+    "missionTitle": "Notre mission",
+    "missionDesc": "Offrir une qualité exceptionnelle, des prix justes et un service fiable — avec une touche locale.",
+    "valuesTitle": "Nos valeurs",
+    "values": {
+      "quality": "Matériaux de qualité",
+      "service": "Service de confiance",
+      "craft": "Savoir‑faire expert"
+    },
+    "ctaTitle": "Découvrez nos produits",
+    "ctaButton": "Voir les produits"
+  }
+  ,
+  "contact": {
+    "title": "Contactez‑nous",
+    "subtitle": "Nous sommes là pour vous aider avec les devis, les commandes et vos questions produits.",
+    "reachUs": "Nous joindre",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "E‑mail",
+    "formTitle": "Envoyez‑nous un message",
+    "fields": {
+      "name": "Nom complet",
+      "email": "E‑mail",
+      "phone": "Téléphone",
+      "message": "Message",
+      "namePlaceholder": "Votre nom complet",
+      "emailPlaceholder": "vous@exemple.com",
+      "phonePlaceholder": "+216 (___) ___-____",
+      "messagePlaceholder": "Comment pouvons‑nous aider ?"
+    },
+    "send": "Envoyer"
+  }
+  ,
+  "aboutPage": {
+    "heroTitle": "À propos de Marimex",
+    "heroSubtitle": "Des produits d’exception, conçus avec passion et précision depuis 2010.",
+    "storyTitle": "Notre histoire",
+    "story": {
+      "p1": "Fondée en 2010, Marimex a commencé comme un petit atelier avec une grande vision. Notre fondateur, Issam Karoui, croyait en des produits alliant fonctionnalité et design, tout en maintenant les plus hauts standards de qualité.",
+      "p2": "Ce qui a commencé comme un projet passion est devenu une marque reconnue pour son engagement envers l’artisanat et l’innovation. Aujourd’hui, nous continuons à repousser les limites tout en restant fidèles à nos valeurs d’excellence, de durabilité et de satisfaction client.",
+      "p3": "Au fil des années, nos collections ont évolué, mais notre volonté de créer des produits d’exception reste intacte. Chaque pièce est pensée et fabriquée avec soin pour non seulement répondre, mais dépasser vos attentes."
+    },
+    "missionTitle": "Notre mission & vision",
+    "mission": {
+      "p1": "Chez Marimex, notre mission est d’enrichir la vie des personnes grâce à des produits conçus avec soin, alliant beauté, fonctionnalité et durabilité. Nous croyons que les objets qui nous entourent doivent servir un but tout en apportant joie et inspiration.",
+      "p2": "Notre vision est de devenir un leader mondial de notre secteur, reconnu pour nos designs innovants, notre qualité exceptionnelle et notre engagement envers des pratiques responsables.",
+      "p3": "Chaque jour, nous avançons vers ces objectifs en investissant dans nos équipes, en améliorant nos processus et en étant à l’écoute de nos clients. Nous sommes convaincus que les petits détails comptent, et c’est cette attention qui distingue Marimex."
+    },
+    "valuesTitle": "Nos valeurs fondamentales",
+    "values": {
+      "quality": {
+        "title": "Artisanat de qualité",
+        "desc": "Nous créons des produits faits pour durer, avec des matériaux d’exception et une attention méticuleuse portée à chaque détail."
+      },
+      "innovation": {
+        "title": "Innovation durable",
+        "desc": "Nous explorons en continu de nouvelles idées et technologies pour améliorer nos produits tout en réduisant notre impact environnemental."
+      },
+      "customer": {
+        "title": "Engagement client",
+        "desc": "Nos clients sont au cœur de nos actions : dépasser les attentes et bâtir des relations durables basées sur la confiance et un service exemplaire."
+      }
+    }
+  }
+}
