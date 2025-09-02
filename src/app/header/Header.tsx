@@ -16,7 +16,7 @@ import {
 
 import { t, type Locale } from "@/i18n";
 import { getClientLocale, setClientLocale } from "@/i18n/client";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Facebook, Instagram, Linkedin } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
 import { useAuth } from "@/contexts/auth-context";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -124,6 +124,17 @@ export function Header() {
               </nav>
               {/* Mobile Footer */}
               <div className="absolute bottom-6 left-6 right-6">
+                <div className="flex items-center justify-center gap-3 pb-3">
+                  <a href="https://www.facebook.com/karouicommercial" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                  <a href="https://www.instagram.com/mari.mex13/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground">
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                  <a href="https://www.linkedin.com/company/108663309/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                </div>
                 <div className="text-xs text-muted-foreground text-center">© 2025 Marimex</div>
               </div>
             </SheetContent>
@@ -156,6 +167,16 @@ export function Header() {
                 </span>
               )}
             </Link>
+            {/* Mobile social links */}
+            <a href="https://www.facebook.com/karouicommercial" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground">
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a href="https://www.instagram.com/mari.mex13/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground">
+              <Instagram className="h-5 w-5" />
+            </a>
+            <a href="https://www.linkedin.com/company/108663309/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground">
+              <Linkedin className="h-5 w-5" />
+            </a>
             <ThemeToggle mode="icon" />
             <div className="relative">
               <Button
@@ -235,6 +256,18 @@ export function Header() {
               </span>
             )}
           </Link>
+          {/* Desktop social links */}
+          <div className="hidden md:flex items-center gap-3">
+            <a href="https://www.facebook.com/karouicommercial" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground">
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a href="https://www.instagram.com/mari.mex13/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground">
+              <Instagram className="h-5 w-5" />
+            </a>
+            <a href="https://www.linkedin.com/company/108663309/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground">
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </div>
           <ThemeToggle mode="icon" />
           <div className="relative">
           <Button
