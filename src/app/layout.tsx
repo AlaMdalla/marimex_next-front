@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Note: We can't read cookies here reliably without making this function async/server. It's async already.
   // We'll mirror the html lang selection done in the RootLayout body.
   const defaultTitle = "Marimex — Premium Marble in Tunisia";
-  const defaultDesc = "Premium marble products, expert craft, and reliable service in Tunisia. Browse, review, and order with fast SSO login.";
+  const defaultDesc = "Premium marble products, expert craft, and reliable service in Tunisia. Browse,";
   return {
     metadataBase: new URL(siteUrl),
     title: {
