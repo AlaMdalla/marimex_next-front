@@ -369,19 +369,19 @@ export default function CartPage() {
                         {geoLoading ? (
                           <span className="inline-flex items-center gap-2 text-sm">
                             <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                            {"Locating…"}
+                            {t(locale, "cart.address.locating")}
                           </span>
                         ) : (
-                          "Use my location"
+                          t(locale, "cart.address.useMyLocation")
                         )}
                       </Button>
                     </div>
-                    {geoMsg ? (
+          {geoMsg ? (
                       <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
                         <span>{geoMsg}</span>
-                        <Button variant="ghost" size="sm" onClick={useCurrentLocation} disabled={geoLoading}>Retry</Button>
+            <Button variant="ghost" size="sm" onClick={useCurrentLocation} disabled={geoLoading}>{t(locale, "common.retry")}</Button>
                       </div>
-                    ) : null}
+          ) : null}
                   </div>
                 </div>
 

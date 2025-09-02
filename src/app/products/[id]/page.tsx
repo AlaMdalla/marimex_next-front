@@ -11,8 +11,40 @@ import { Separator } from "@/components/ui/separator";
 import { CommentsSection } from "@/components/comments/CommentsSection";
 import { cookies } from "next/headers";
 import { t, type Locale } from "@/i18n";
+import type { Metadata } from "next";
 
 type Params = { params: { id: string } };
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { id } = params
+  // Best-effort fetch for title/description
+  let product: any = null
+  try {
+    product = await getMarbleById(id)
+  } catch {}
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com"
+  const titleBase = product?.name ? `${product.name} | Marbre Tunisie – Marimex` : "Produit | Marimex"
+  const desc = product?.description || product?.descriptions || "Découvrez nos produits en marbre et outillage en Tunisie."
+  const images: string[] = product?.imageurl ? [product.imageurl] : ["/images/marimex.jpg"]
+  return {
+    title: titleBase,
+    description: desc,
+    alternates: { canonical: `/products/${id}` },
+    openGraph: {
+      title: titleBase,
+      description: desc,
+      url: `${siteUrl}/products/${id}`,
+      images,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titleBase,
+      description: desc,
+      images,
+    },
+  }
+}
 
 export default async function ProductDetailsPage({ params }: Params) {
   const { id } = params;
@@ -109,6 +141,47 @@ export default async function ProductDetailsPage({ params }: Params) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Structured data: Product + Breadcrumb */}
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.name,
+            image: product.imageurl ? [product.imageurl] : [],
+            description: product.description || product.descriptions,
+            brand: { "@type": "Brand", name: "Marimex" },
+            sku: String(product._id || product.id),
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "TND",
+              price: Number(product.price || 0),
+              availability: "https://schema.org/InStock",
+              url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com"}/products/${String(product._id || product.id)}`,
+            },
+            aggregateRating: (reviewsCount > 0)
+              ? { "@type": "AggregateRating", ratingValue: Number(avgRating.toFixed(1)), reviewCount: reviewsCount }
+              : undefined,
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: `${process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com"}/` },
+              { "@type": "ListItem", position: 2, name: "Produits", item: `${process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com"}/products` },
+              { "@type": "ListItem", position: 3, name: product.name, item: `${process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com"}/products/${String(product._id || product.id)}` },
+            ],
+          })
+        }}
+      />
       {/* Breadcrumb */}
       <div className="bg-background border-b border">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
@@ -192,7 +265,7 @@ export default async function ProductDetailsPage({ params }: Params) {
                 {t(locale, "common.description")}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                {product.description}
+                {product.description || product.descriptions}
               </p>
             </div>
 
@@ -220,7 +293,7 @@ export default async function ProductDetailsPage({ params }: Params) {
               <div className="flex gap-3">
                 <AddToCartButton
                   locale={locale}
-                  product={{ id: product._id || product.id, name: product.name, price: Number(product.price), imageurl: product.imageurl, description: product.description }}
+                  product={{ id: product._id || product.id, name: product.name, price: Number(product.price), imageurl: product.imageurl, description: product.description || product.descriptions }}
                 />
                 <Button variant="outline" size="lg" className="h-12">
                   <Heart className="h-5 w-5" />
