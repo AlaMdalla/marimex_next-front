@@ -35,6 +35,7 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your-maps-api-key
 
 Once configured, the Google button appears on `/login`, and the Cart map modal supports place search and selection.
 
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses a single global font: Lexend (via `@fontsource/lexend/variable.css`). The base `font-sans` maps to Lexend so all text renders consistently.

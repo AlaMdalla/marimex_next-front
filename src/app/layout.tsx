@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Note: We can't read cookies here reliably without making this function async/server. It's async already.
   // We'll mirror the html lang selection done in the RootLayout body.
   const defaultTitle = "Marimex — Premium Marble in Tunisia";
-  const defaultDesc = "Premium marble products, expert craft, and reliable service in Tunisia. Browse,";
+  const defaultDesc = "Premium marble products, expert craft, and reliable service in Tunisia. Browse, review, and order with fast SSO login.";
   return {
     metadataBase: new URL(siteUrl),
     title: {
@@ -91,6 +91,20 @@ export default async function RootLayout({
               url: process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com",
               logo: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com") + "/images/marimex.jpg",
               sameAs: []
+            })
+          }}
+        />
+        {/* Local business structured data for local SEO */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "Marimex",
+              url: process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com",
+              image: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com") + "/images/marimex.jpg",
             })
           }}
         />

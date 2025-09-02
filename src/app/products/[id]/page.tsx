@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Star, Heart, ShoppingCart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
-import { getMarbleById, getCommentsByMarbleId, getMarblesByTag } from "@/services/marbles";
+import { getMarbleById, getCommentsByMarbleId, getMarblesByTag, getAllMarbles } from "@/services/marbles";
 import { Button } from "@/components/ui/button";
 import { AddToCartButton } from "@/components/ui/add-to-cart";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,19 @@ import { t, type Locale } from "@/i18n";
 import type { Metadata } from "next";
 
 type Params = { params: { id: string } };
+
+// Revalidate product pages periodically for freshness
+export const revalidate = 3600; // 1 hour
+
+// Pre-generate static params for faster TTFB and indexing
+export async function generateStaticParams() {
+  try {
+    const marbles = await getAllMarbles();
+    return (Array.isArray(marbles) ? marbles : []).map((m: any) => ({ id: String(m._id || m.id) }));
+  } catch {
+    return [] as { id: string }[];
+  }
+}
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = params
