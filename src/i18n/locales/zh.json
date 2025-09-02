@@ -36,6 +36,106 @@
     "item": "件",
     "items": "件"
   },
+  "admin": {
+    "nav": {
+      "title": "管理后台",
+      "overview": "概览",
+      "products": "产品",
+      "orders": "订单",
+      "store": "商店"
+    },
+    "overview": {
+      "welcome": "欢迎来到管理后台。请选择要执行的操作：",
+      "manageProducts": "管理产品"
+    },
+    "products": {
+      "filters": {
+        "title": "筛选",
+        "searchLabel": "搜索（名称/描述）",
+        "searchPlaceholder": "搜索...",
+        "priceMin": "最低价格",
+        "priceMax": "最高价格",
+        "favoritesOnly": "仅收藏",
+        "starsMin": "最低星级",
+        "starsMax": "最高星级",
+        "perPage": "每页数量",
+        "tagsTitle": "标签",
+        "noTags": "暂无标签",
+        "clear": "清除",
+        "showing": "正在显示 {count} 个结果{of}"
+      },
+      "form": {
+        "titleAdd": "新增产品",
+        "titleUpdate": "更新产品",
+        "name": "名称",
+        "price": "价格",
+        "favorite": "收藏",
+        "stars": "星级（0-5）",
+        "image": "图片",
+        "uploading": "正在上传…",
+        "open": "打开",
+        "description": "描述",
+        "update": "更新",
+        "submit": "提交",
+        "reset": "重置",
+        "confirmDelete": "删除此产品？"
+      },
+      "list": {
+        "existingTitle": "已有产品",
+        "loading": "加载中…",
+        "empty": "暂无产品。",
+        "edit": "编辑",
+        "delete": "删除",
+        "prev": "上一页",
+        "next": "下一页"
+      },
+      "toast": {
+        "loadFailed": "加载产品失败",
+        "imageUploaded": "图片已上传",
+        "uploadNoUrl": "上传成功但缺少 URL",
+        "imageUploadFailed": "图片上传失败",
+        "validationMissing": "名称与图片必填",
+        "productUpdated": "产品已更新",
+        "productAdded": "产品已添加",
+        "saveFailed": "保存失败",
+        "productDeleted": "产品已删除",
+        "deleteFailed": "删除失败"
+      }
+    },
+    "orders": {
+      "title": "订单",
+      "back": "返回概览",
+      "filterPlaceholder": "按价格、位置、大理石、电话或姓名筛选",
+      "loading": "加载中…",
+      "empty": "暂无订单。",
+      "openMap": "打开地图",
+      "validate": "确认",
+      "reject": "拒绝",
+      "table": {
+        "orderName": "订单名",
+        "totalPrice": "总价",
+        "location": "位置",
+        "marbles": "大理石",
+        "phone": "电话",
+        "actions": "操作"
+      },
+      "toast": {
+        "loadFailed": "加载订单失败",
+        "validated": "已确认",
+        "validateFailed": "确认失败",
+        "deleted": "已删除",
+        "deleteFailed": "删除失败"
+      },
+      "a11y": {
+        "filterAria": "筛选订单",
+        "clearFilter": "清除筛选"
+      },
+      "chart": {
+        "placeholderTitle": "订单分布（占位）",
+        "placeholderDesc": "稍后可集成图表库（如 react-chartjs-2）。"
+      }
+    }
+  },
   "home": {
     "heroTitle": "高端大理石 · 匠心工艺",
     "heroSubtitle": "以精心甄选的大理石产品，焕新你的空间。",
@@ -56,8 +156,8 @@
     "empty": {"title": "你的购物车是空的", "subtitle": "还没有添加商品——一起去发现心仪之选。", "cta": "浏览系列"},
     "features": {"freeDelivery": "免费配送", "qualityGuarantee": "质量保证", "easyReturns": "轻松退货"},
     "summary": {"title": "订单摘要", "subtotal": "小计", "estimatedTotal": "预计总计", "shippingNote": "运费将在结算时计算"},
-    "customer": {"fullName": "姓名", "phoneNumber": "电话", "namePlaceholder": "你的姓名", "phonePlaceholder": "+216 (___) ___-____"},
-    "address": {"label": "收货地址", "selectLocation": "选择你的位置"},
+  "customer": {"fullName": "姓名", "phoneNumber": "电话", "namePlaceholder": "你的姓名", "phonePlaceholder": "+216 (___) ___-____"},
+  "address": {"label": "收货地址", "selectLocation": "选择你的位置", "useMyLocation": "使用我的位置", "locating": "正在定位…"},
     "actions": {"checkout": "下单", "continueShopping": "继续购物", "cancel": "取消", "confirm": "确认", "processing": "处理中..."},
     "mapModal": {"title": "选择你的位置", "description": "点击地图设置收货地址", "placeholder": "此处为交互式地图集成", "useThis": "使用此位置"},
     "confirmModal": {"title": "确认订单", "description": "确认前请检查订单详情", "summaryTitle": "你的订单摘要", "customerInfo": "客户信息", "deliveryAddress": "收货地址", "quantity": "数量：", "totalLabel": "预计总计："},
@@ -114,5 +214,44 @@
       "messagePlaceholder": "我们能如何帮助你？"
     },
     "send": "发送"
+  }
+  ,
+  "auth": {
+    "common": {
+      "login": "登录",
+      "register": "注册",
+      "logout": "退出",
+      "or": "或",
+      "goHome": "返回首页"
+    },
+    "fields": {
+      "name": "姓名",
+      "email": "邮箱",
+      "password": "密码",
+      "confirmPassword": "确认密码"
+    },
+    "placeholders": {
+      "name": "你的姓名",
+      "email": "you@example.com",
+      "password": "••••••••",
+      "confirmPassword": "再次输入密码"
+    },
+    "login": {
+      "title": "欢迎回来",
+      "subtitle": "使用 Google 登录，体验更快速",
+      "loading": "正在登录...",
+      "alreadySigned": "你已登录。",
+      "noAccount": "还没有账户？"
+    },
+    "register": {
+      "title": "创建账户",
+      "subtitle": "几次点击即可加入我们",
+      "loading": "正在创建账户...",
+      "submit": "创建账户",
+      "haveAccount": "已经有账户？"
+    },
+    "errors": {
+      "passwordMismatch": "两次输入的密码不一致"
+    }
   }
 }

@@ -42,7 +42,7 @@ export function Header() {
   const items = navItems(locale)
   const menuItems = React.useMemo(() => {
     const base = [...items]
-    if (user?.isAdmin) base.unshift({ href: "/admin", label: "Admin" })
+    if (user?.isAdmin) base.unshift({ href: "/admin", label: t(locale, "admin.nav.title") })
     return base
   }, [items, user?.isAdmin])
 
@@ -135,7 +135,7 @@ export function Header() {
           </Link>
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
-            {user ? (
+      {user ? (
               <Link href="/profile" aria-label="Profile">
                 <div className="h-8 w-8 rounded-full bg-foreground text-background flex items-center justify-center text-sm font-bold uppercase">
                   {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
@@ -143,7 +143,7 @@ export function Header() {
               </Link>
             ) : (
               <Link href="/login">
-                <Button variant="outline" size="sm">Login</Button>
+        <Button variant="outline" size="sm">{t(locale, "auth.common.login")}</Button>
               </Link>
             )}
             <Link href="/cart" className="relative">
@@ -214,7 +214,7 @@ export function Header() {
 
           {/* Auth + Cart + Language */}
           <div className="flex items-center gap-3">
-          {user ? (
+      {user ? (
             <Link href="/profile" className="relative" aria-label="Profile">
               <div className="h-9 w-9 rounded-full bg-foreground text-background flex items-center justify-center font-bold uppercase">
                 {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
@@ -222,7 +222,7 @@ export function Header() {
             </Link>
           ) : (
             <Link href="/login">
-              <Button variant="outline" size="sm">Login</Button>
+        <Button variant="outline" size="sm">{t(locale, "auth.common.login")}</Button>
             </Link>
           )}
           <Link href="/cart" className="relative">

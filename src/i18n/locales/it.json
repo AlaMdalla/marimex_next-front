@@ -80,7 +80,9 @@
     },
     "address": {
       "label": "Indirizzo di consegna",
-      "selectLocation": "Seleziona la tua posizione"
+  "selectLocation": "Seleziona la tua posizione",
+  "useMyLocation": "Usa la mia posizione",
+  "locating": "Localizzazione…"
     },
     "actions": {
       "checkout": "Effettua l'ordine",
@@ -107,6 +109,106 @@
     "alerts": {
       "required": "Compila tutti i campi obbligatori",
       "confirmed": "Ordine confermato! Ti contatteremo a breve."
+    }
+  },
+  "admin": {
+    "nav": {
+      "title": "Pannello Admin",
+      "overview": "Panoramica",
+      "products": "Prodotti",
+      "orders": "Ordini",
+      "store": "Negozio"
+    },
+    "overview": {
+      "welcome": "Benvenuto nell'area admin. Scegli un'azione:",
+      "manageProducts": "Gestisci prodotti"
+    },
+    "orders": {
+      "title": "Ordini",
+      "back": "Torna all’overview",
+      "filterPlaceholder": "Filtra per prezzo, posizione, marmo, telefono o nome",
+      "loading": "Caricamento…",
+      "empty": "Nessun ordine trovato.",
+      "openMap": "Apri mappa",
+      "validate": "Valida",
+      "reject": "Rifiuta",
+      "table": {
+        "orderName": "Nome ordine",
+        "totalPrice": "Prezzo totale",
+        "location": "Posizione",
+        "marbles": "Marmi",
+        "phone": "Telefono",
+        "actions": "Azioni"
+      },
+      "toast": {
+        "loadFailed": "Caricamento ordini non riuscito",
+        "validated": "Ordine validato",
+        "validateFailed": "Convalida non riuscita",
+        "deleted": "Ordine eliminato",
+        "deleteFailed": "Eliminazione non riuscita"
+      },
+      "a11y": {
+        "filterAria": "Filtra ordini",
+        "clearFilter": "Pulisci filtro"
+      },
+      "chart": {
+        "placeholderTitle": "Ripartizione ordini (segnaposto)",
+        "placeholderDesc": "Integra più tardi la tua libreria di grafici (es. react-chartjs-2)."
+      }
+    },
+    "products": {
+      "filters": {
+        "title": "Filtri",
+        "searchLabel": "Cerca (nome/descrizione)",
+        "searchPlaceholder": "Cerca...",
+        "priceMin": "Prezzo min",
+        "priceMax": "Prezzo max",
+        "favoritesOnly": "Solo preferiti",
+        "starsMin": "Stelle min",
+        "starsMax": "Stelle max",
+        "perPage": "Per pagina",
+        "tagsTitle": "Tag",
+        "noTags": "Nessun tag",
+        "clear": "Pulisci",
+        "showing": "Mostrando {count} risultato/i{of}"
+      },
+      "form": {
+        "titleAdd": "Aggiungi nuovo prodotto",
+        "titleUpdate": "Aggiorna prodotto",
+        "name": "Nome",
+        "price": "Prezzo",
+        "favorite": "Preferito",
+        "stars": "Stelle (0-5)",
+        "image": "Immagine",
+        "uploading": "Caricamento…",
+        "open": "Apri",
+        "description": "Descrizione",
+        "update": "Aggiorna",
+        "submit": "Invia",
+        "reset": "Reset",
+        "confirmDelete": "Eliminare questo prodotto?"
+      },
+      "list": {
+        "existingTitle": "Prodotti esistenti",
+        "loading": "Caricamento…",
+        "empty": "Nessun prodotto.",
+        "edit": "Modifica",
+        "delete": "Elimina",
+        "prev": "Prec",
+        "next": "Succ"
+      },
+      "toast": {
+        "loadFailed": "Caricamento prodotti non riuscito",
+        "imageUploaded": "Immagine caricata",
+        "uploadNoUrl": "Caricamento riuscito ma URL mancante",
+        "imageUploadFailed": "Caricamento immagine non riuscito",
+        "validationMissing": "Nome e immagine sono obbligatori",
+        "productUpdated": "Prodotto aggiornato",
+        "productAdded": "Prodotto aggiunto",
+        "saveFailed": "Salvataggio non riuscito",
+        "productDeleted": "Prodotto eliminato",
+        "deleteFailed": "Eliminazione non riuscita"
+      }
     }
   },
   "about": {
@@ -160,5 +262,44 @@
       "messagePlaceholder": "Come possiamo aiutarti?"
     },
     "send": "Invia"
+  }
+  ,
+  "auth": {
+    "common": {
+      "login": "Accedi",
+      "register": "Registrati",
+      "logout": "Esci",
+      "or": "oppure",
+      "goHome": "Torna alla home"
+    },
+    "fields": {
+      "name": "Nome",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma Password"
+    },
+    "placeholders": {
+      "name": "Il tuo nome",
+      "email": "tu@example.com",
+      "password": "••••••••",
+      "confirmPassword": "Ripeti la password"
+    },
+    "login": {
+      "title": "Bentornato",
+      "subtitle": "Accedi con Google per un'esperienza più veloce",
+      "loading": "Accesso in corso...",
+      "alreadySigned": "Hai già effettuato l'accesso.",
+      "noAccount": "Non hai un account?"
+    },
+    "register": {
+      "title": "Crea il tuo account",
+      "subtitle": "Unisciti a noi in pochi clic",
+      "loading": "Creazione account...",
+      "submit": "Crea account",
+      "haveAccount": "Hai già un account?"
+    },
+    "errors": {
+      "passwordMismatch": "Le password non coincidono"
+    }
   }
 }

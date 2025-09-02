@@ -5,6 +5,8 @@ import { uploadImage, addMarble, getAllMarbles, deleteMarble, updateMarble, getA
 import type { Marble, NewMarble } from "@/types/marble"
 import { toast } from "@/components/ui/toast"
 import Image from "next/image"
+import { t, type Locale } from "@/i18n"
+import { getClientLocale } from "@/i18n/client"
 
 type FormState = {
   name: string
@@ -25,6 +27,7 @@ const emptyForm: FormState = {
 }
 
 export default function AdminProductsPage() {
+  const [locale, setLocale] = useState<Locale>("en")
   const [form, setForm] = useState<FormState>(emptyForm)
   const [submitting, setSubmitting] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -49,13 +52,14 @@ export default function AdminProductsPage() {
       const data = await getAllMarbles()
       setItems(Array.isArray(data) ? data : [])
     } catch (e: any) {
-      toast.error(e?.message || "Failed to load products", "Error")
+  toast.error(e?.message || t(locale, "admin.products.toast.loadFailed"), "Error")
     } finally {
       setLoadingList(false)
     }
   }, [])
 
   useEffect(() => {
+  setLocale(getClientLocale())
     load()
   }, [load])
 
@@ -90,12 +94,12 @@ export default function AdminProductsPage() {
       const secureUrl = res?.data?.secure_url || res?.secure_url || res?.url
       if (secureUrl) {
         setForm((f) => ({ ...f, imageurl: String(secureUrl) }))
-        toast.success("Image uploaded", "Success")
+        toast.success(t(locale, "admin.products.toast.imageUploaded"), "Success")
       } else {
-        toast.error("Upload succeeded but URL missing", "Upload")
+        toast.error(t(locale, "admin.products.toast.uploadNoUrl"), "Upload")
       }
     } catch (e: any) {
-      toast.error(e?.message || "Image upload failed", "Upload Failed")
+      toast.error(e?.message || t(locale, "admin.products.toast.imageUploadFailed"), "Upload Failed")
     } finally {
       setUploading(false)
     }
@@ -109,7 +113,7 @@ export default function AdminProductsPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name || !form.imageurl) {
-      toast.error("Name and image are required", "Validation")
+  toast.error(t(locale, "admin.products.toast.validationMissing"), "Validation")
       return
     }
     const payload: NewMarble = {
@@ -125,28 +129,28 @@ export default function AdminProductsPage() {
     try {
       if (editId) {
         await updateMarble(editId, payload)
-        toast.success("Product updated", "Success")
+        toast.success(t(locale, "admin.products.toast.productUpdated"), "Success")
       } else {
         await addMarble(payload)
-        toast.success("Product added", "Success")
+        toast.success(t(locale, "admin.products.toast.productAdded"), "Success")
       }
       reset()
       await load()
     } catch (e: any) {
-      toast.error(e?.response?.data?.message || e?.message || "Save failed", "Error")
+      toast.error(e?.response?.data?.message || e?.message || t(locale, "admin.products.toast.saveFailed"), "Error")
     } finally {
       setSubmitting(false)
     }
   }
 
   const onDelete = async (id: string) => {
-    if (!confirm("Delete this product?")) return
+    if (!confirm(t(locale, "admin.products.form.confirmDelete"))) return
     try {
       await deleteMarble(id)
-      toast.success("Product deleted", "Done")
+      toast.success(t(locale, "admin.products.toast.productDeleted"), "Done")
       await load()
     } catch (e: any) {
-      toast.error(e?.message || "Delete failed", "Error")
+      toast.error(e?.message || t(locale, "admin.products.toast.deleteFailed"), "Error")
     }
   }
 
@@ -204,34 +208,34 @@ export default function AdminProductsPage() {
     <div className="grid grid-cols-1 gap-8">
       {/* Filters */}
       <section className="border rounded-lg p-6">
-        <h2 className="text-lg font-semibold mb-4">Filters</h2>
+        <h2 className="text-lg font-semibold mb-4">{t(locale, "admin.products.filters.title")}</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
           <label className="grid gap-1 md:col-span-2">
-            <span className="text-sm">Search (name/description)</span>
-            <input value={search} onChange={(e) => setSearch(e.target.value)} className="border rounded px-3 py-2" placeholder="Search..." />
+            <span className="text-sm">{t(locale, "admin.products.filters.searchLabel")}</span>
+            <input value={search} onChange={(e) => setSearch(e.target.value)} className="border rounded px-3 py-2" placeholder={t(locale, "admin.products.filters.searchPlaceholder")} />
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Price min</span>
+            <span className="text-sm">{t(locale, "admin.products.filters.priceMin")}</span>
             <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="border rounded px-3 py-2" />
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Price max</span>
+            <span className="text-sm">{t(locale, "admin.products.filters.priceMax")}</span>
             <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="border rounded px-3 py-2" />
           </label>
           <label className="flex items-center gap-2">
             <input type="checkbox" checked={favoriteOnly} onChange={(e) => setFavoriteOnly(e.target.checked)} />
-            <span className="text-sm">Favorites only</span>
+            <span className="text-sm">{t(locale, "admin.products.filters.favoritesOnly")}</span>
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Stars min</span>
+            <span className="text-sm">{t(locale, "admin.products.filters.starsMin")}</span>
             <input type="number" min={0} max={5} value={minStars} onChange={(e) => setMinStars(e.target.value)} className="border rounded px-3 py-2" />
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Stars max</span>
+            <span className="text-sm">{t(locale, "admin.products.filters.starsMax")}</span>
             <input type="number" min={0} max={5} value={maxStars} onChange={(e) => setMaxStars(e.target.value)} className="border rounded px-3 py-2" />
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Per page</span>
+            <span className="text-sm">{t(locale, "admin.products.filters.perPage")}</span>
             <select className="border rounded px-3 py-2" value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}>
               {[6, 9, 12, 18, 24].map((n) => (
                 <option key={n} value={n}>{n}</option>
@@ -241,9 +245,9 @@ export default function AdminProductsPage() {
         </div>
         {/* Tags selection */}
         <div className="mt-4">
-          <div className="text-sm font-medium mb-2">Tags</div>
+          <div className="text-sm font-medium mb-2">{t(locale, "admin.products.filters.tagsTitle")}</div>
           {tags.length === 0 ? (
-            <div className="text-xs text-muted-foreground">No tags</div>
+            <div className="text-xs text-muted-foreground">{t(locale, "admin.products.filters.noTags")}</div>
           ) : (
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => {
@@ -262,38 +266,38 @@ export default function AdminProductsPage() {
                 )
               })}
               {selectedTags.length > 0 && (
-                <button type="button" onClick={() => setSelectedTags([])} className="px-3 py-1 rounded-full border text-xs">Clear</button>
+                <button type="button" onClick={() => setSelectedTags([])} className="px-3 py-1 rounded-full border text-xs">{t(locale, "admin.products.filters.clear")}</button>
               )}
             </div>
           )}
         </div>
-        <div className="mt-3 text-xs text-muted-foreground">Showing {filtered.length} result(s){filtered.length !== items.length ? ` of ${items.length}` : ""}</div>
+  <div className="mt-3 text-xs text-muted-foreground">{t(locale, "admin.products.filters.showing").replace("{count}", String(filtered.length)).replace("{of}", filtered.length !== items.length ? ` ${t(locale, "common.of")} ${items.length}` : "")}</div>
       </section>
       <section className="border rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">{editId ? "Update product" : "Add new product"}</h2>
+        <h2 className="text-xl font-semibold mb-4">{editId ? t(locale, "admin.products.form.titleUpdate") : t(locale, "admin.products.form.titleAdd")}</h2>
         <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="grid gap-1">
-            <span className="text-sm">Name</span>
+            <span className="text-sm">{t(locale, "admin.products.form.name")}</span>
             <input name="name" value={form.name} onChange={onChange} className="border rounded px-3 py-2" required />
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Price</span>
+            <span className="text-sm">{t(locale, "admin.products.form.price")}</span>
             <input name="price" type="number" step="0.01" value={form.price} onChange={onChange} className="border rounded px-3 py-2" required />
           </label>
           <label className="flex items-center gap-2">
             <input name="favorite" type="checkbox" checked={form.favorite} onChange={onChange} />
-            <span className="text-sm">Favorite</span>
+            <span className="text-sm">{t(locale, "admin.products.form.favorite")}</span>
           </label>
           <label className="grid gap-1">
-            <span className="text-sm">Stars (0-5)</span>
+            <span className="text-sm">{t(locale, "admin.products.form.stars")}</span>
             <input name="stars" type="number" min={0} max={5} value={form.stars} onChange={onChange} className="border rounded px-3 py-2" />
           </label>
           <label className="grid gap-1 md:col-span-2">
-            <span className="text-sm">Image</span>
+            <span className="text-sm">{t(locale, "admin.products.form.image")}</span>
             <div className="flex items-center gap-3">
               <input type="file" accept="image/*" onChange={onFile} />
-              {uploading ? <span className="text-xs text-muted-foreground">Uploading…</span> : null}
-              {form.imageurl ? <a className="text-xs text-primary underline" href={form.imageurl} target="_blank" rel="noreferrer">Open</a> : null}
+              {uploading ? <span className="text-xs text-muted-foreground">{t(locale, "admin.products.form.uploading")}</span> : null}
+              {form.imageurl ? <a className="text-xs text-primary underline" href={form.imageurl} target="_blank" rel="noreferrer">{t(locale, "admin.products.form.open")}</a> : null}
             </div>
             {form.imageurl ? (
               <div className="mt-2 relative w-40 h-40 border rounded overflow-hidden">
@@ -303,24 +307,24 @@ export default function AdminProductsPage() {
             ) : null}
           </label>
           <label className="grid gap-1 md:col-span-2">
-            <span className="text-sm">Description</span>
+            <span className="text-sm">{t(locale, "admin.products.form.description")}</span>
             <textarea name="descriptions" rows={4} value={form.descriptions} onChange={onChange} className="border rounded px-3 py-2" />
           </label>
           <div className="md:col-span-2 flex gap-3">
             <button disabled={submitting} className="px-4 py-2 rounded bg-black text-white disabled:opacity-50">
-              {editId ? "Update" : "Submit"}
+              {editId ? t(locale, "admin.products.form.update") : t(locale, "admin.products.form.submit")}
             </button>
-            <button type="button" onClick={reset} className="px-4 py-2 rounded border">Reset</button>
+            <button type="button" onClick={reset} className="px-4 py-2 rounded border">{t(locale, "admin.products.form.reset")}</button>
           </div>
         </form>
       </section>
 
       <section className="border rounded-lg p-6">
-        <h3 className="text-lg font-semibold mb-4">Existing products</h3>
+        <h3 className="text-lg font-semibold mb-4">{t(locale, "admin.products.list.existingTitle")}</h3>
         {loadingList ? (
-          <div className="text-sm text-muted-foreground">Loading…</div>
+          <div className="text-sm text-muted-foreground">{t(locale, "admin.products.list.loading")}</div>
         ) : filtered.length === 0 ? (
-          <div className="text-sm text-muted-foreground">No products yet.</div>
+          <div className="text-sm text-muted-foreground">{t(locale, "admin.products.list.empty")}</div>
         ) : (
           <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -335,8 +339,8 @@ export default function AdminProductsPage() {
                     <div className="font-medium line-clamp-1">{m.name}</div>
                     <div className="text-sm text-muted-foreground">${Number(m.price || 0).toFixed(2)}</div>
                     <div className="flex gap-2">
-                      <button onClick={() => startEdit(m)} className="text-xs px-3 py-1 rounded border">Edit</button>
-                      <button onClick={() => onDelete(id)} className="text-xs px-3 py-1 rounded border border-red-500 text-red-600">Delete</button>
+                      <button onClick={() => startEdit(m)} className="text-xs px-3 py-1 rounded border">{t(locale, "admin.products.list.edit")}</button>
+                      <button onClick={() => onDelete(id)} className="text-xs px-3 py-1 rounded border border-red-500 text-red-600">{t(locale, "admin.products.list.delete")}</button>
                     </div>
                   </div>
                 </div>
@@ -345,7 +349,7 @@ export default function AdminProductsPage() {
           </div>
           {/* Pagination */}
           <div className="mt-6 flex items-center justify-between gap-3">
-            <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page - 1)} disabled={currentPage === 1}>Prev</button>
+            <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page - 1)} disabled={currentPage === 1}>{t(locale, "admin.products.list.prev")}</button>
             <div className="flex flex-wrap items-center gap-2">
               {Array.from({ length: totalPages }, (_, i) => i + 1).slice(Math.max(0, currentPage - 3), Math.max(0, currentPage - 3) + 7).map((p) => (
                 <button
@@ -357,7 +361,7 @@ export default function AdminProductsPage() {
                 </button>
               ))}
             </div>
-            <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page + 1)} disabled={currentPage === totalPages}>Next</button>
+            <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page + 1)} disabled={currentPage === totalPages}>{t(locale, "admin.products.list.next")}</button>
           </div>
           </>
         )}

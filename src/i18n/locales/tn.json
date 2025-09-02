@@ -22,24 +22,129 @@
     "priceHigh": "السعر: من الأكثر للأقل",
     "previous": "السابق",
     "next": "التالي",
+        "loadFailed": "فشل في تحميل الطلبات",
     "youMightAlsoLike": "ينجم يعجبوك زادة هاذم",
     "viewAllProducts": "شوف كل المنتوجات",
     "notFoundTitle": "المنتوج موش موجود",
     "notFoundDesc": "المنتوج اللي تقلّب عليه موش موجود ولا تمسح.",
-    "description": "الوصف",
+  "description": "الوصف",
+  "showing": "نورّيك",
+  "of": "من",
+      "a11y": {
+        "filterAria": "فلترة الطلبات",
+        "clearFilter": "مسح الفلتر"
+      },
     "keyFeatures": "الخصائص",
     "freeShipping": "توصيل مجاني",
     "warranty": "ضمان",
-    "easyReturns": "إرجاع سهل",
-    "productSpecifications": "مواصفات المنتوج",
-    "showing": "نورّيك",
-    "of": "من",
-    "productsWord": "المنتوجات",
-    "productsHeroDescription": "اختيارات رخام ممتاز، كل قطعة معمولة بإتقان وفن",
-    "item": "قطعة",
-    "items": "قطع"
-  }
-  ,
+    "easyReturns": "إرجاع سهل"
+  },
+  "admin": {
+    "nav": {
+      "title": "لوحة الإدارة",
+      "overview": "نظرة عامة",
+      "products": "المنتوجات",
+      "orders": "الطلبات",
+      "store": "المتجر"
+    },
+    "overview": {
+      "welcome": "مرحبا بيك في إدارة الموقع. إختر شنو تحب تعمل:",
+      "manageProducts": "تصرف في المنتوجات"
+    },
+    "products": {
+      "filters": {
+        "title": "الفلاتر",
+        "searchLabel": "قلّب (بالاسم/الوصف)",
+        "searchPlaceholder": "قلّب...",
+        "priceMin": "السّعر الأدنى",
+        "priceMax": "السّعر الأقصى",
+        "favoritesOnly": "المفضّلة كان",
+        "starsMin": "نجوم أصغر",
+        "starsMax": "نجوم أكبر",
+        "perPage": "في كل صفحة",
+        "tagsTitle": "التاغات",
+        "noTags": "ما فماش تاغات",
+        "clear": "مسح",
+        "showing": "نورّيك {count} نتيجة{of}"
+      },
+      "form": {
+        "titleAdd": "زيد منتوج جديد",
+        "titleUpdate": "حدّث المنتوج",
+        "name": "الاسم",
+        "price": "السّعر",
+        "favorite": "مفضّل",
+        "stars": "نجوم (0-5)",
+        "image": "الصّورة",
+        "uploading": "قاعدين نحمّلو…",
+        "open": "حلّ",
+        "description": "الوصف",
+        "update": "حدّث",
+        "submit": "سجّل",
+        "reset": "صفّر",
+        "confirmDelete": "تمسح المنتوج هذا؟"
+      },
+      "list": {
+        "existingTitle": "المنتوجات الموجودة",
+        "loading": "يعادي…",
+        "empty": "ما فماش منتوجات.",
+        "edit": "بدّل",
+        "delete": "مسح",
+        "prev": "السابق",
+        "next": "التالي"
+      },
+      "toast": {
+        "loadFailed": "فشل في تحميل المنتوجات",
+        "imageUploaded": "الصّورة اتحمّلت",
+        "uploadNoUrl": "التحميل نجح اما الرابط مفقود",
+        "imageUploadFailed": "فشل تحميل الصورة",
+        "validationMissing": "الاسم والصّورة ضروريين",
+        "productUpdated": "المنتوج اتحّدث",
+        "productAdded": "المنتوج تزاد",
+        "saveFailed": "فشل في الحفظ",
+        "productDeleted": "المنتوج تمسح",
+        "deleteFailed": "فشل في المسح"
+      }
+    },
+    "orders": {
+      "title": "الطلبات",
+      "back": "ارجع للواجهة",
+      "filterPlaceholder": "قلّب بالسعر، البلاصه، الماربل، التلفون ولا الاسم",
+      "loading": "يعادّي…",
+      "empty": "ما فماش طلبات.",
+      "openMap": "حل الخريطة",
+      "validate": "أكد",
+      "reject": "رفض",
+      "table": {
+        "orderName": "اسم الطلب",
+        "totalPrice": "السوم الجملي",
+        "location": "البلاصه",
+        "marbles": "الماربل",
+        "phone": "التلفون",
+        "actions": "الإجراءات"
+      },
+      "toast": {
+        "loadFailed": "فشل في تحميل الطلبات",
+        "validated": "تمّ التأكيد",
+        "validateFailed": "ما نجمتش تتأكد",
+        "deleted": "تمّ الحذف",
+        "deleteFailed": "ما نجمتش تتمسح"
+      },
+      "a11y": {
+        "filterAria": "فلترة الطلبات",
+        "clearFilter": "مسح الفلتر"
+      },
+      "chart": {
+        "placeholderTitle": "توزيع الطلبات (مؤقّت)",
+        "placeholderDesc": "تنجم تزيد لاحقًا مكتّبة غراف (كيف react-chartjs-2)."
+      }
+    }
+  },
+  "showing": "نورّيك",
+  "of": "من",
+  "productsWord": "المنتوجات",
+  "productsHeroDescription": "اختيارات رخام ممتاز، كل قطعة معمولة بإتقان وفن",
+  "item": "قطعة",
+  "items": "قطع",
   "home": {
     "heroTitle": "رخام ممتاز. صنعة خبيرة.",
     "heroSubtitle": "زيّن بلايصك باختيارات من الرخام مختارة بعناية.",
@@ -82,7 +187,9 @@
     },
     "address": {
       "label": "عنوان التوصيل",
-      "selectLocation": "اختار بلاصتك"
+  "selectLocation": "اختار بلاصتك",
+  "useMyLocation": "استعمل بلاصتي",
+  "locating": "قاعدين نحددو البلاصه…"
     },
     "actions": {
       "checkout": "أكد الطلب",
@@ -110,8 +217,7 @@
       "required": "عبّي كل الخانات اللازمة",
       "confirmed": "تمّ التأكيد! باش نتصلو بيك قريب."
     }
-  }
-  ,
+  },
   "about": {
     "title": "على ماريمكس",
     "subtitle": "نصنعو حلول رخام ممتازة للمنازل والشركات في تونس.",
@@ -146,6 +252,45 @@
       "messagePlaceholder": "كيفاش نجمو نعاونوك؟"
     },
     "send": "ابعت"
+  }
+  ,
+  "auth": {
+    "common": {
+      "login": "دخول",
+      "register": "تسجيل",
+      "logout": "خروج",
+      "or": "ولا",
+      "goHome": "ارجع للواجهة"
+    },
+    "fields": {
+      "name": "الاسم",
+      "email": "الإيميل",
+      "password": "كلمة السر",
+      "confirmPassword": "أكّد كلمة السر"
+    },
+    "placeholders": {
+      "name": "اسمك",
+      "email": "you@example.com",
+      "password": "••••••••",
+      "confirmPassword": "عاود كلمة السر"
+    },
+    "login": {
+      "title": "مرحبا بيك",
+      "subtitle": "سجّل بجوجل أسرع",
+      "loading": "قاعد يدخل...",
+      "alreadySigned": "انتي داخل تاو.",
+      "noAccount": "ما عندكش حساب؟"
+    },
+    "register": {
+      "title": "اعمّل حسابك",
+      "subtitle": "تنجم تلتحق بينا في ثواني",
+      "loading": "نعمّل في الحساب...",
+      "submit": "اعمّل حساب",
+      "haveAccount": "عندك حساب؟"
+    },
+    "errors": {
+      "passwordMismatch": "كلمات السر موش كيف كيف"
+    }
   }
   ,
   "aboutPage": {

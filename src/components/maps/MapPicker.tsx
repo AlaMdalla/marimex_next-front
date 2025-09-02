@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import Script from "next/script"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 declare global {
@@ -16,23 +15,14 @@ export type SelectedLocation = { lat: number; lng: number; address?: string }
 export function MapPicker({ onSelect }: { onSelect: (loc: SelectedLocation) => void }) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   const mapRef = useRef<HTMLDivElement | null>(null)
-  const inputRef = useRef<HTMLInputElement | null>(null)
   const markerRef = useRef<any>(null)
   const mapInstRef = useRef<any>(null)
   const [ready, setReady] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const [selection, setSelection] = useState<SelectedLocation | null>(null)
   const [reloadId, setReloadId] = useState(0)
-
-  const placeToSelection = useCallback((place: any): SelectedLocation | null => {
-    if (!place) return null
-    const loc = place.geometry?.location
-    if (!loc) return null
-    const lat = typeof loc.lat === "function" ? loc.lat() : loc.lat
-    const lng = typeof loc.lng === "function" ? loc.lng() : loc.lng
-    const address = place.formatted_address || place.name
-    return { lat, lng, address }
-  }, [])
+  const [geoLoading, setGeoLoading] = useState(false)
+  const [geoMsg, setGeoMsg] = useState<string | null>(null)
 
   const setMarker = useCallback((pos: { lat: number; lng: number }) => {
     const g = window.google
@@ -50,6 +40,78 @@ export function MapPicker({ onSelect }: { onSelect: (loc: SelectedLocation) => v
       markerRef.current.setPosition(pos)
     }
   }, [])
+
+  const centerAndMark = useCallback((pos: { lat: number; lng: number }, address?: string) => {
+    const g = window.google
+    if (!g || !mapInstRef.current) return
+    mapInstRef.current.setCenter(pos)
+    mapInstRef.current.setZoom(15)
+    setMarker(pos)
+    setSelection(address ? { ...pos, address } : { ...pos })
+  }, [setMarker])
+
+  const useCurrentLocation = useCallback(() => {
+    setGeoMsg(null)
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      setGeoMsg("Geolocation is not supported in this browser.")
+      return
+    }
+    setGeoLoading(true)
+    const getPos = (opts: PositionOptions) =>
+      new Promise<GeolocationPosition>((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject, opts)
+      )
+
+    const run = async () => {
+      try {
+        // Try high accuracy first (GPS on mobile)
+        const pos = await getPos({ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
+        return pos
+      } catch (e: any) {
+        // Fallback: low accuracy, longer timeout, allow cached
+        try {
+          const pos2 = await getPos({ enableHighAccuracy: false, timeout: 20000, maximumAge: 300000 })
+          return pos2
+        } catch (e2) {
+          throw e2
+        }
+      }
+    }
+
+    run()
+      .then((pos) => {
+        const lat = pos.coords.latitude
+        const lng = pos.coords.longitude
+        const g = window.google
+        if (g?.maps) {
+          const geocoder = new g.maps.Geocoder()
+          geocoder.geocode({ location: { lat, lng } }, (results: any, status: any) => {
+            const address = status === "OK" && results?.[0]?.formatted_address ? results[0].formatted_address : undefined
+            centerAndMark({ lat, lng }, address)
+            setGeoLoading(false)
+          })
+        } else {
+          centerAndMark({ lat, lng })
+          setGeoLoading(false)
+        }
+      })
+      .catch(async (error: any) => {
+        let msg = "Failed to get current location."
+        if (error?.code === 1) msg = "Location permission denied."
+        else if (error?.code === 2) msg = "Position unavailable."
+        else if (error?.code === 3) msg = "Location request timed out."
+        if (typeof window !== "undefined" && window.location.protocol !== "https:" && window.location.hostname !== "localhost") {
+          msg += " Enable HTTPS to use geolocation."
+        }
+        // Permissions API hint
+        try {
+          const perm: any = await (navigator as any).permissions?.query?.({ name: "geolocation" as any })
+          if (perm && perm.state === "denied") msg = "Location permission denied in browser settings."
+        } catch {}
+        setGeoMsg(msg)
+        setGeoLoading(false)
+      })
+  }, [centerAndMark])
 
   // Capture auth failures emitted by the Maps script
   useEffect(() => {
@@ -83,21 +145,6 @@ export function MapPicker({ onSelect }: { onSelect: (loc: SelectedLocation) => v
         setMarker(pos)
         setSelection(pos)
       })
-
-      // Autocomplete search
-      if (inputRef.current) {
-        const ac = new g.maps.places.Autocomplete(inputRef.current, { fields: ["geometry", "name", "formatted_address"] })
-        ac.bindTo("bounds", map)
-        ac.addListener("place_changed", () => {
-          const place = ac.getPlace()
-          const sel = placeToSelection(place)
-          if (!sel) return
-          map.setCenter({ lat: sel.lat, lng: sel.lng })
-          map.setZoom(15)
-          setMarker({ lat: sel.lat, lng: sel.lng })
-          setSelection(sel)
-        })
-      }
     } catch (e: any) {
       const msg: string = e?.message || "Failed to initialize Google Maps"
       if (/BillingNotEnabled/i.test(msg)) {
@@ -105,24 +152,41 @@ export function MapPicker({ onSelect }: { onSelect: (loc: SelectedLocation) => v
       } else if (/RefererNotAllowed/i.test(msg)) {
         setErr("This API key is restricted. Add your origin (e.g., http://localhost:4200) to HTTP referrers in the key restrictions.")
       } else if (/ApiNotActivated/i.test(msg)) {
-        setErr("Maps JavaScript or Places API is not enabled. Enable them in Google Cloud Console.")
+        setErr("Maps JavaScript API is not enabled. Enable it in Google Cloud Console.")
       } else {
         setErr(msg)
       }
     }
-  }, [ready, apiKey, placeToSelection, setMarker])
+  }, [ready, apiKey, setMarker])
 
   return (
     <div className="w-full">
       <Script
         key={`gmaps-${reloadId}`}
-        src={`https://maps.googleapis.com/maps/api/js?key=${apiKey || ""}&libraries=places&v=weekly&channel=nextjs-map-picker-${reloadId}`}
+        src={`https://maps.googleapis.com/maps/api/js?key=${apiKey || ""}&v=weekly&channel=nextjs-map-picker-${reloadId}`}
         strategy="afterInteractive"
         onLoad={() => setReady(true)}
         onError={() => setErr("Failed to load Google Maps script. Check API key and HTTP referrer restrictions.")}
       />
       <div className="flex flex-col gap-3">
-        <Input ref={inputRef} placeholder="Search for a place" aria-label="Search location" disabled={!!err} />
+        <div className="flex gap-2 justify-end">
+          <Button variant="outline" onClick={useCurrentLocation} disabled={!!err || geoLoading}>
+            {geoLoading ? (
+              <span className="inline-flex items-center gap-2 text-sm">
+                <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                Locating…
+              </span>
+            ) : (
+              "Use my location"
+            )}
+          </Button>
+        </div>
+        {geoMsg ? (
+          <div className="text-xs text-muted-foreground flex items-center gap-2">
+            <span>{geoMsg}</span>
+            <Button variant="ghost" size="sm" onClick={useCurrentLocation} disabled={geoLoading}>Retry</Button>
+          </div>
+        ) : null}
         <div ref={mapRef} className="h-80 w-full rounded-md border flex items-center justify-center">
           {!ready && !err ? (
             <span className="text-sm text-muted-foreground">Loading map…</span>

@@ -5,6 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { getAllCommandes, deleteCommande, validateCommande, getMarbleById } from "@/services/marbles"
 import { toast } from "@/components/ui/toast"
+import { t, type Locale } from "@/i18n"
+import { getClientLocale } from "@/i18n/client"
 
 type CommandeItem = {
   marble: string | number
@@ -18,7 +20,7 @@ type Commande = {
   totalPrice?: number
   number_of_phone?: string
   status?: string
-  location?: { lat?: number; lng?: number }
+  location?: { lat?: number; lng?: number; address?: string }
   list_marbles: CommandeItem[]
 }
 
@@ -31,6 +33,8 @@ type Marble = {
 }
 
 export default function AdminOrdersPage() {
+  const [locale, setLocale] = React.useState<Locale>("en")
+  React.useEffect(() => { setLocale(getClientLocale()) }, [])
   const [isLoading, setIsLoading] = React.useState(true)
   const [commandes, setCommandes] = React.useState<Commande[]>([])
   const [filterText, setFilterText] = React.useState("")
@@ -67,7 +71,7 @@ export default function AdminOrdersPage() {
       )
       setMarbleMap((prev) => ({ ...newMap, ...prev }))
     } catch (e: any) {
-      toast.error(e?.message || "Failed to load orders")
+  toast.error(e?.message || t(locale, "admin.orders.toast.loadFailed"))
       setCommandes([])
     } finally {
       setIsLoading(false)
@@ -82,14 +86,15 @@ export default function AdminOrdersPage() {
     (rows: Commande[]) => {
       let result = [...rows]
       const q = filterText.trim().toLowerCase()
-      if (q) {
+    if (q) {
         result = result.filter((c) => {
           const price = c.totalPrice != null ? String(c.totalPrice) : ""
-          const loc = c.location?.lat != null && c.location?.lng != null ? `${c.location.lat},${c.location.lng}`.toLowerCase() : ""
+      const loc = c.location?.lat != null && c.location?.lng != null ? `${c.location.lat},${c.location.lng}`.toLowerCase() : ""
+      const addr = c.location?.address ? c.location.address.toLowerCase() : ""
           const orderName = c.order_name?.toLowerCase() || ""
           const phone = c.number_of_phone ? String(c.number_of_phone) : ""
           const hasMarble = (c.list_marbles || []).some((it) => (marbleMap[it.marble]?.name || "").toLowerCase().includes(q))
-          return price.includes(q) || loc.includes(q) || orderName.includes(q) || phone.includes(q) || hasMarble
+      return price.includes(q) || loc.includes(q) || addr.includes(q) || orderName.includes(q) || phone.includes(q) || hasMarble
         })
       }
       result.sort((a, b) => {
@@ -123,10 +128,10 @@ export default function AdminOrdersPage() {
     if (!id) return
     try {
       await validateCommande(id)
-  toast.success("Order validated")
+  toast.success(t(locale, "admin.orders.toast.validated"))
       await load()
     } catch (e: any) {
-  toast.error(e?.message || "Failed to validate")
+  toast.error(e?.message || t(locale, "admin.orders.toast.validateFailed"))
     }
   }
 
@@ -135,19 +140,19 @@ export default function AdminOrdersPage() {
     if (!id) return
     try {
       await deleteCommande(id)
-  toast.success("Order deleted")
+  toast.success(t(locale, "admin.orders.toast.deleted"))
       await load()
     } catch (e: any) {
-  toast.error(e?.message || "Failed to delete")
+  toast.error(e?.message || t(locale, "admin.orders.toast.deleteFailed"))
     }
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Orders</h2>
+        <h2 className="text-xl font-semibold">{t(locale, "admin.orders.title")}</h2>
         <Link href="/admin" className="text-sm underline-offset-4 hover:underline">
-          Back to overview
+          {t(locale, "admin.orders.back")}
         </Link>
       </div>
 
@@ -155,37 +160,37 @@ export default function AdminOrdersPage() {
         <input
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          placeholder="Filter by price, location, marble, phone, or name"
+          placeholder={t(locale, "admin.orders.filterPlaceholder")}
           className="w-full border rounded px-3 py-2 pr-10"
-          aria-label="Filter orders"
+          aria-label={t(locale, "admin.orders.a11y.filterAria")}
         />
         {filterText && (
           <button
             onClick={() => setFilterText("")}
             className="absolute right-2 top-1/2 -translate-y-1/2 text-sm px-2 py-1 rounded border"
-            aria-label="Clear filter"
-            title="Clear filter"
+            aria-label={t(locale, "admin.orders.a11y.clearFilter")}
+            title={t(locale, "admin.orders.a11y.clearFilter")}
           >
-            Clear
+            {t(locale, "common.retry")}
           </button>
         )}
       </div>
 
       {isLoading ? (
-        <div className="py-20 text-center text-sm text-muted-foreground">Loading…</div>
+  <div className="py-20 text-center text-sm text-muted-foreground">{t(locale, "admin.orders.loading")}</div>
       ) : filtered.length === 0 ? (
-        <div className="rounded border p-4 text-sm">No orders found.</div>
+  <div className="rounded border p-4 text-sm">{t(locale, "admin.orders.empty")}</div>
       ) : (
         <div className="overflow-x-auto rounded border">
           <table className="w-full text-sm">
             <thead className="bg-muted/50">
               <tr>
-                <th className="text-left p-2 cursor-pointer" onClick={() => toggleSort("order_name")}>Order Name</th>
-                <th className="text-left p-2 cursor-pointer" onClick={() => toggleSort("totalPrice")}>Total Price</th>
-                <th className="text-left p-2 cursor-pointer" onClick={() => toggleSort("location")}>Location</th>
-                <th className="text-left p-2">Marbles</th>
-                <th className="text-left p-2">Phone</th>
-                <th className="text-left p-2">Actions</th>
+    <th className="text-left p-2 cursor-pointer" onClick={() => toggleSort("order_name")}>{t(locale, "admin.orders.table.orderName")}</th>
+    <th className="text-left p-2 cursor-pointer" onClick={() => toggleSort("totalPrice")}>{t(locale, "admin.orders.table.totalPrice")}</th>
+    <th className="text-left p-2 cursor-pointer" onClick={() => toggleSort("location")}>{t(locale, "admin.orders.table.location")}</th>
+    <th className="text-left p-2">{t(locale, "admin.orders.table.marbles")}</th>
+    <th className="text-left p-2">{t(locale, "admin.orders.table.phone")}</th>
+    <th className="text-left p-2">{t(locale, "admin.orders.table.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -195,9 +200,14 @@ export default function AdminOrdersPage() {
                   <td className="p-2">{c.totalPrice != null ? `${c.totalPrice.toFixed ? c.totalPrice.toFixed(2) : c.totalPrice} DT` : "N/A"}</td>
                   <td className="p-2">
                     {c.location?.lat != null && c.location?.lng != null ? (
-                      <button className="underline underline-offset-2" onClick={() => onOpenMap(c.location?.lat, c.location?.lng)}>
-                        Open map
-                      </button>
+                      <div className="flex flex-col">
+                        {c.location?.address ? (
+                          <div className="text-xs text-foreground/90 line-clamp-2">{c.location.address}</div>
+                        ) : null}
+                        <button className="underline underline-offset-2 text-left" onClick={() => onOpenMap(c.location?.lat, c.location?.lng)}>
+                          {t(locale, "admin.orders.openMap")}
+                        </button>
+                      </div>
                     ) : (
                       <span className="text-muted-foreground">N/A</span>
                     )}
@@ -229,14 +239,14 @@ export default function AdminOrdersPage() {
                         disabled={c.status === "validated"}
                         onClick={() => onValidate(c)}
                       >
-                        Validate
+                        {t(locale, "admin.orders.validate")}
                       </button>
                       <button
                         className="text-xs px-2 py-1 rounded border border-red-500 text-red-600 disabled:opacity-50"
                         disabled={c.status === "rejected"}
                         onClick={() => onReject(c)}
                       >
-                        Reject
+                        {t(locale, "admin.orders.reject")}
                       </button>
                     </div>
                   </td>
@@ -249,8 +259,8 @@ export default function AdminOrdersPage() {
 
       {/* Simple chart placeholder */}
       <div className="border rounded p-4">
-        <h3 className="font-medium mb-2">Orders breakdown (placeholder)</h3>
-        <div className="text-sm text-muted-foreground">Integrate your preferred chart library later (e.g., react-chartjs-2).</div>
+        <h3 className="font-medium mb-2">{t(locale, "admin.orders.chart.placeholderTitle")}</h3>
+        <div className="text-sm text-muted-foreground">{t(locale, "admin.orders.chart.placeholderDesc")}</div>
       </div>
     </div>
   )

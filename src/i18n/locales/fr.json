@@ -82,7 +82,9 @@
     },
     "address": {
       "label": "Adresse de Livraison",
-      "selectLocation": "Sélectionner votre localisation"
+  "selectLocation": "Sélectionner votre localisation",
+  "useMyLocation": "Utiliser ma position",
+  "locating": "Localisation…"
     },
     "actions": {
       "checkout": "Passer la Commande",
@@ -112,6 +114,106 @@
     }
   }
   ,
+  "admin": {
+    "nav": {
+      "title": "Tableau de bord Admin",
+      "overview": "Aperçu",
+      "products": "Produits",
+      "orders": "Commandes",
+      "store": "Boutique"
+    },
+    "overview": {
+      "welcome": "Bienvenue dans l’espace administrateur. Choisissez une action :",
+      "manageProducts": "Gérer les produits"
+    },
+    "orders": {
+      "title": "Commandes",
+      "back": "Retour à l’aperçu",
+      "filterPlaceholder": "Filtrer par prix, localisation, marbre, téléphone ou nom",
+      "loading": "Chargement…",
+      "empty": "Aucune commande trouvée.",
+      "openMap": "Ouvrir la carte",
+      "validate": "Valider",
+      "reject": "Rejeter",
+      "table": {
+        "orderName": "Nom de la commande",
+        "totalPrice": "Prix total",
+        "location": "Localisation",
+        "marbles": "Marbres",
+        "phone": "Téléphone",
+        "actions": "Actions"
+      },
+      "toast": {
+        "loadFailed": "Échec du chargement des commandes",
+        "validated": "Commande validée",
+        "validateFailed": "Échec de la validation",
+        "deleted": "Commande supprimée",
+        "deleteFailed": "Échec de la suppression"
+      },
+      "a11y": {
+        "filterAria": "Filtrer les commandes",
+        "clearFilter": "Effacer le filtre"
+      },
+      "chart": {
+        "placeholderTitle": "Répartition des commandes (espace réservé)",
+        "placeholderDesc": "Intégrez plus tard votre bibliothèque de graphiques (ex: react-chartjs-2)."
+      }
+    },
+    "products": {
+      "filters": {
+        "title": "Filtres",
+        "searchLabel": "Recherche (nom/description)",
+        "searchPlaceholder": "Rechercher...",
+        "priceMin": "Prix min",
+        "priceMax": "Prix max",
+        "favoritesOnly": "Favoris uniquement",
+        "starsMin": "Étoiles min",
+        "starsMax": "Étoiles max",
+        "perPage": "Par page",
+        "tagsTitle": "Tags",
+        "noTags": "Aucun tag",
+        "clear": "Effacer",
+        "showing": "Affichage de {count} résultat(s){of}"
+      },
+      "form": {
+        "titleAdd": "Ajouter un produit",
+        "titleUpdate": "Mettre à jour le produit",
+        "name": "Nom",
+        "price": "Prix",
+        "favorite": "Favori",
+        "stars": "Étoiles (0-5)",
+        "image": "Image",
+        "uploading": "Téléversement…",
+        "open": "Ouvrir",
+        "description": "Description",
+        "update": "Mettre à jour",
+        "submit": "Enregistrer",
+        "reset": "Réinitialiser",
+        "confirmDelete": "Supprimer ce produit ?"
+      },
+      "list": {
+        "existingTitle": "Produits existants",
+        "loading": "Chargement…",
+        "empty": "Aucun produit.",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "prev": "Préc.",
+        "next": "Suiv."
+      },
+      "toast": {
+        "loadFailed": "Échec du chargement des produits",
+        "imageUploaded": "Image téléversée",
+        "uploadNoUrl": "Téléversement réussi mais URL manquante",
+        "imageUploadFailed": "Échec du téléversement",
+        "validationMissing": "Nom et image obligatoires",
+        "productUpdated": "Produit mis à jour",
+        "productAdded": "Produit ajouté",
+        "saveFailed": "Échec de l’enregistrement",
+        "productDeleted": "Produit supprimé",
+        "deleteFailed": "Échec de la suppression"
+      }
+    }
+  },
   "about": {
     "title": "À propos de Marimex",
     "subtitle": "Nous créons des solutions en marbre haut de gamme pour les foyers et les entreprises en Tunisie.",
@@ -146,6 +248,45 @@
       "messagePlaceholder": "Comment pouvons‑nous aider ?"
     },
     "send": "Envoyer"
+  }
+  ,
+  "auth": {
+    "common": {
+      "login": "Connexion",
+      "register": "Inscription",
+  "logout": "Déconnexion",
+      "or": "ou",
+  "goHome": "Aller à l'accueil"
+    },
+    "fields": {
+      "name": "Nom",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe"
+    },
+    "placeholders": {
+      "name": "Votre nom",
+      "email": "vous@exemple.com",
+      "password": "••••••••",
+  "confirmPassword": "Répétez votre mot de passe"
+    },
+    "login": {
+      "title": "Bon retour",
+  "subtitle": "Connectez-vous avec Google pour une expérience rapide",
+      "loading": "Connexion...",
+  "alreadySigned": "Vous êtes déjà connecté.",
+      "noAccount": "Pas de compte ?"
+    },
+    "register": {
+  "title": "Créez votre compte",
+      "subtitle": "Rejoignez-nous en quelques clics",
+  "loading": "Création du compte...",
+  "submit": "Créer un compte",
+  "haveAccount": "Vous avez déjà un compte ?"
+    },
+    "errors": {
+      "passwordMismatch": "Les mots de passe ne correspondent pas"
+    }
   }
   ,
   "aboutPage": {

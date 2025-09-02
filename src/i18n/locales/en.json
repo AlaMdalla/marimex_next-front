@@ -82,7 +82,9 @@
     },
     "address": {
       "label": "Delivery Address",
-      "selectLocation": "Select your location"
+  "selectLocation": "Select your location",
+  "useMyLocation": "Use my location",
+  "locating": "Locating…"
     },
     "actions": {
       "checkout": "Place Order",
@@ -112,6 +114,106 @@
     }
   }
   ,
+  "admin": {
+    "nav": {
+      "title": "Admin Dashboard",
+      "overview": "Overview",
+      "products": "Products",
+      "orders": "Orders",
+      "store": "Store"
+    },
+    "overview": {
+      "welcome": "Welcome to the admin area. Choose an action:",
+      "manageProducts": "Manage products"
+    },
+    "orders": {
+      "title": "Orders",
+      "back": "Back to overview",
+      "filterPlaceholder": "Filter by price, location, marble, phone, or name",
+      "loading": "Loading…",
+      "empty": "No orders found.",
+      "openMap": "Open map",
+      "validate": "Validate",
+      "reject": "Reject",
+      "table": {
+        "orderName": "Order Name",
+        "totalPrice": "Total Price",
+        "location": "Location",
+        "marbles": "Marbles",
+        "phone": "Phone",
+        "actions": "Actions"
+      },
+      "toast": {
+        "loadFailed": "Failed to load orders",
+        "validated": "Order validated",
+        "validateFailed": "Failed to validate",
+        "deleted": "Order deleted",
+        "deleteFailed": "Failed to delete"
+      },
+      "a11y": {
+        "filterAria": "Filter orders",
+        "clearFilter": "Clear filter"
+      },
+      "chart": {
+        "placeholderTitle": "Orders breakdown (placeholder)",
+        "placeholderDesc": "Integrate your preferred chart library later (e.g., react-chartjs-2)."
+      }
+    },
+    "products": {
+      "filters": {
+        "title": "Filters",
+        "searchLabel": "Search (name/description)",
+        "searchPlaceholder": "Search...",
+        "priceMin": "Price min",
+        "priceMax": "Price max",
+        "favoritesOnly": "Favorites only",
+        "starsMin": "Stars min",
+        "starsMax": "Stars max",
+        "perPage": "Per page",
+        "tagsTitle": "Tags",
+        "noTags": "No tags",
+        "clear": "Clear",
+        "showing": "Showing {count} result(s){of}" 
+      },
+      "form": {
+        "titleAdd": "Add new product",
+        "titleUpdate": "Update product",
+        "name": "Name",
+        "price": "Price",
+        "favorite": "Favorite",
+        "stars": "Stars (0-5)",
+        "image": "Image",
+        "uploading": "Uploading…",
+        "open": "Open",
+        "description": "Description",
+        "update": "Update",
+        "submit": "Submit",
+        "reset": "Reset",
+        "confirmDelete": "Delete this product?"
+      },
+      "list": {
+        "existingTitle": "Existing products",
+        "loading": "Loading…",
+        "empty": "No products yet.",
+        "edit": "Edit",
+        "delete": "Delete",
+        "prev": "Prev",
+        "next": "Next"
+      },
+      "toast": {
+        "loadFailed": "Failed to load products",
+        "imageUploaded": "Image uploaded",
+        "uploadNoUrl": "Upload succeeded but URL missing",
+        "imageUploadFailed": "Image upload failed",
+        "validationMissing": "Name and image are required",
+        "productUpdated": "Product updated",
+        "productAdded": "Product added",
+        "saveFailed": "Save failed",
+        "productDeleted": "Product deleted",
+        "deleteFailed": "Delete failed"
+      }
+    }
+  },
   "about": {
     "title": "About Marimex",
     "subtitle": "We craft premium marble solutions for homes and businesses in Tunisia.",
@@ -146,6 +248,45 @@
       "messagePlaceholder": "How can we help?"
     },
     "send": "Send Message"
+  }
+  ,
+  "auth": {
+    "common": {
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "or": "or",
+      "goHome": "Go Home"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "email": "you@example.com",
+      "password": "••••••••",
+      "confirmPassword": "Repeat your password"
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in with Google for the fastest experience",
+      "loading": "Logging in...",
+      "alreadySigned": "You are already signed in.",
+      "noAccount": "Don't have an account?"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Join us in a few clicks",
+      "loading": "Creating account...",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?"
+    },
+    "errors": {
+      "passwordMismatch": "Passwords do not match"
+    }
   }
   ,
   "aboutPage": {

@@ -37,6 +37,8 @@ export default function CartPage() {
   const [showMapModal, setShowMapModal] = React.useState(false)
   const [showConfirmationModal, setShowConfirmationModal] = React.useState(false)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [geoLoading, setGeoLoading] = React.useState(false)
+  const [geoMsg, setGeoMsg] = React.useState<string | null>(null)
 
   const calculateSubtotal = () => {
     return totalPrice
@@ -58,6 +60,56 @@ export default function CartPage() {
     setLocation(selectedLocation)
     setShowMapModal(false)
   }
+
+  const useCurrentLocation = React.useCallback(() => {
+    setGeoMsg(null)
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      setGeoMsg("Geolocation is not supported in this browser.")
+      return
+    }
+    setGeoLoading(true)
+    const getPos = (opts: PositionOptions) =>
+      new Promise<GeolocationPosition>((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject, opts)
+      )
+
+    const run = async () => {
+      try {
+        const pos = await getPos({ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
+        return pos
+      } catch (e) {
+        try {
+          const pos2 = await getPos({ enableHighAccuracy: false, timeout: 20000, maximumAge: 300000 })
+          return pos2
+        } catch (e2) {
+          throw e2
+        }
+      }
+    }
+
+    run()
+      .then((pos) => {
+        const lat = pos.coords.latitude
+        const lng = pos.coords.longitude
+        setLocation({ lat, lng })
+        setGeoLoading(false)
+      })
+      .catch(async (error: any) => {
+        let msg = "Failed to get current location."
+        if (error?.code === 1) msg = "Location permission denied."
+        else if (error?.code === 2) msg = "Position unavailable."
+        else if (error?.code === 3) msg = "Location request timed out."
+        if (typeof window !== "undefined" && window.location.protocol !== "https:" && window.location.hostname !== "localhost") {
+          msg += " Enable HTTPS to use geolocation."
+        }
+        try {
+          const perm: any = await (navigator as any).permissions?.query?.({ name: "geolocation" as any })
+          if (perm && perm.state === "denied") msg = "Location permission denied in browser settings."
+        } catch {}
+        setGeoMsg(msg)
+        setGeoLoading(false)
+      })
+  }, [])
 
   const confirmOrder = () => {
     if (!phoneNumber.trim() || !orderName.trim() || !location) {
@@ -298,20 +350,38 @@ export default function CartPage() {
                     <Label className="text-sm font-medium mb-2 block">
                       {t(locale, "cart.address.label")}
                     </Label>
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowMapModal(true)}
-                      className="w-full justify-start h-10"
-                    >
-                      <MapPin className="h-4 w-4 mr-2" />
-                      {location ? (
-                        <span className="text-sm">
-                          {location.address || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground">{t(locale, "cart.address.selectLocation")}</span>
-                      )}
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowMapModal(true)}
+                        className="w-full justify-start h-10"
+                      >
+                        <MapPin className="h-4 w-4 mr-2" />
+                        {location ? (
+                          <span className="text-sm">
+                            {location.address || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
+                          </span>
+                        ) : (
+                          <span className="text-muted-foreground">{t(locale, "cart.address.selectLocation")}</span>
+                        )}
+                      </Button>
+                      <Button variant="outline" onClick={useCurrentLocation} disabled={geoLoading} className="h-10 whitespace-nowrap">
+                        {geoLoading ? (
+                          <span className="inline-flex items-center gap-2 text-sm">
+                            <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                            {"Locating…"}
+                          </span>
+                        ) : (
+                          "Use my location"
+                        )}
+                      </Button>
+                    </div>
+                    {geoMsg ? (
+                      <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
+                        <span>{geoMsg}</span>
+                        <Button variant="ghost" size="sm" onClick={useCurrentLocation} disabled={geoLoading}>Retry</Button>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
 
