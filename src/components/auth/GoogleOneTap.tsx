@@ -55,7 +55,7 @@ export function GoogleOneTap() {
   }
 
   // If script already present (e.g., from other components), mark ready
-  useEffect(() => {a
+  useEffect(() => {
     if (typeof window !== "undefined" && window.google?.accounts?.id) setReady(true)
   }, [])
 
