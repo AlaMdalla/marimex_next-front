@@ -23,18 +23,29 @@ export function GoogleSignIn() {
     .map((s) => s.trim())
     .filter(Boolean)
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
+  const debug = process.env.NEXT_PUBLIC_GSI_DEBUG === "true"
+
+  const normalize = (o: string) => {
+    try {
+      const u = new URL(o)
+      return u.origin.replace(/\/$/, "")
+    } catch {
+      return o.replace(/\/$/, "")
+    }
+  }
+  const normalizedAllowed = allowedEnv.map(normalize)
+  const normalizedSite = siteUrl ? normalize(siteUrl) : ""
   const isOriginAllowed = () => {
     if (typeof window === "undefined") return true
-    const origin = window.location.origin
+    const origin = window.location.origin.replace(/\/$/, "")
     const host = window.location.hostname
     if (host === "localhost" || host === "127.0.0.1") return true
-    if (allowedEnv.includes(origin)) return true
-    try {
-      if (siteUrl) {
-        const siteOrigin = new URL(siteUrl).origin
-        if (siteOrigin === origin) return true
-      }
-    } catch {}
+    if (normalizedAllowed.includes(origin)) return true
+    if (normalizedSite && normalizedSite === origin) return true
+    if (debug) {
+      // eslint-disable-next-line no-console
+      console.warn("[GSI] Origin not allowed (button)", { origin, allowedEnv: normalizedAllowed, siteUrl: normalizedSite })
+    }
     return false
   }
   // If the script was already loaded earlier in the app, mark ready immediately
@@ -68,8 +79,8 @@ export function GoogleSignIn() {
     if (!isOriginAllowed()) {
       // Don't initialize on disallowed origins (e.g., vercel preview) to avoid noisy errors
       if (typeof window !== "undefined") {
-        // Surface a small message so we know why button didn't render
-        setErr("Google Sign-In disabled for this origin. Configure NEXT_PUBLIC_GSI_ALLOWED_ORIGINS.")
+        const origin = window.location.origin.replace(/\/$/, "")
+        setErr(`Google Sign-In disabled for this origin (${origin}). Add it to NEXT_PUBLIC_GSI_ALLOWED_ORIGINS and Google OAuth origins.`)
       }
       return
     }

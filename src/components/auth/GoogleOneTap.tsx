@@ -24,27 +24,38 @@ export function GoogleOneTap() {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean)
+  const debug = process.env.NEXT_PUBLIC_GSI_DEBUG === "true"
+
+  const normalize = (o: string) => {
+    try {
+      const u = new URL(o)
+      return u.origin.replace(/\/$/, "")
+    } catch {
+      return o.replace(/\/$/, "")
+    }
+  }
+  const normalizedAllowed = allowedEnv.map(normalize)
+  const normalizedSite = siteUrl ? normalize(siteUrl) : ""
 
   const isOriginAllowed = () => {
     if (typeof window === "undefined") return true
-    const origin = window.location.origin
+    const origin = window.location.origin.replace(/\/$/, "")
     const host = window.location.hostname
     // Always allow common localhost development origins
     if (host === "localhost" || host === "127.0.0.1") return true
-    // Allow explicit env-configured origins
-    if (allowedEnv.includes(origin)) return true
-    // Allow NEXT_PUBLIC_SITE_URL if it matches current origin
-    try {
-      if (siteUrl) {
-        const siteOrigin = new URL(siteUrl).origin
-        if (siteOrigin === origin) return true
-      }
-    } catch {}
+    // Allow explicit env-configured origins (normalized)
+    if (normalizedAllowed.includes(origin)) return true
+    // Allow NEXT_PUBLIC_SITE_URL if it matches current origin (normalized)
+    if (normalizedSite && normalizedSite === origin) return true
+    if (debug) {
+      // eslint-disable-next-line no-console
+      console.warn("[GSI] Origin not allowed", { origin, allowedEnv: normalizedAllowed, siteUrl: normalizedSite })
+    }
     return false
   }
 
   // If script already present (e.g., from other components), mark ready
-  useEffect(() => {
+  useEffect(() => {a
     if (typeof window !== "undefined" && window.google?.accounts?.id) setReady(true)
   }, [])
 
@@ -55,7 +66,13 @@ export function GoogleOneTap() {
     // Only in top-level browsing context
     if (typeof window !== "undefined" && window.top !== window.self) return
   // Prevent initializing on origins not whitelisted in Google console (e.g., preview URLs)
-  if (!isOriginAllowed()) return
+  if (!isOriginAllowed()) {
+    if (debug) {
+      // eslint-disable-next-line no-console
+      console.info("[GSI] Skipping One Tap initialization due to disallowed origin")
+    }
+    return
+  }
 
     const g = window.google?.accounts?.id
     if (!g) return
@@ -83,8 +100,11 @@ export function GoogleOneTap() {
       })
       prompted.current = true
       g.prompt()
-    } catch {
-      // swallow
+    } catch (e) {
+      if (debug) {
+        // eslint-disable-next-line no-console
+        console.error("[GSI] initialize error", e)
+      }
     }
   }, [ready, clientId, googleLogin, router, user])
 
