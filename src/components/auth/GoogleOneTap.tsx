@@ -20,10 +20,17 @@ export function GoogleOneTap() {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
   const isProd = typeof window === "undefined" ? Boolean(siteUrl && !siteUrl.includes("localhost")) : window.location.hostname.endsWith("marimexste.com")
-  const allowedEnv = (process.env.NEXT_PUBLIC_GSI_ALLOWED_ORIGINS || "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean)
+  const parseAllowed = (raw: string) => {
+    if (!raw) return [] as string[]
+    const t = raw.trim()
+    // Support JSON array format
+    if (t.startsWith("[") && t.endsWith("]")) {
+      try { return (JSON.parse(t) as string[]).map((s) => s.trim()).filter(Boolean) } catch {}
+    }
+    // Fallback CSV
+    return t.split(",").map((s) => s.trim()).filter(Boolean)
+  }
+  const allowedEnv = parseAllowed(process.env.NEXT_PUBLIC_GSI_ALLOWED_ORIGINS || "")
   const debug = process.env.NEXT_PUBLIC_GSI_DEBUG === "true"
 
   const normalize = (o: string) => {

@@ -18,10 +18,15 @@ export function GoogleSignIn() {
   const [scriptReady, setScriptReady] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-  const allowedEnv = (process.env.NEXT_PUBLIC_GSI_ALLOWED_ORIGINS || "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean)
+  const parseAllowed = (raw: string) => {
+    if (!raw) return [] as string[]
+    const t = raw.trim()
+    if (t.startsWith("[") && t.endsWith("]")) {
+      try { return (JSON.parse(t) as string[]).map((s) => s.trim()).filter(Boolean) } catch {}
+    }
+    return t.split(",").map((s) => s.trim()).filter(Boolean)
+  }
+  const allowedEnv = parseAllowed(process.env.NEXT_PUBLIC_GSI_ALLOWED_ORIGINS || "")
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ""
   const debug = process.env.NEXT_PUBLIC_GSI_DEBUG === "true"
 
