@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: defaultDesc,
       url: siteUrl,
       siteName: "Marimex",
-      images: [{ url: "/images/marimex.jpg" }],
+      images: [{ url: "/images/logo.jpeg" }],
       locale: "fr_TN",
       alternateLocale: ["en_US", "it_IT", "ar_TN", "zh_CN"],
       type: "website",
@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: "Marimex — Premium Marble",
       description: "Premium marble products and expert craft.",
-      images: ["/images/marimex.jpg"],
+      images: ["/images/logo.jpeg"],
     },
     alternates: {
       canonical: "/",
@@ -89,7 +89,7 @@ export default async function RootLayout({
               "@type": "Organization",
               name: "Marimex",
               url: process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com",
-              logo: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com") + "/images/marimex.jpg",
+              logo: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com") + "/images/logo.jpeg",
               sameAs: []
             })
           }}
@@ -104,7 +104,7 @@ export default async function RootLayout({
               "@type": "LocalBusiness",
               name: "Marimex",
               url: process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com",
-              image: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com") + "/images/marimex.jpg",
+              image: (process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com") + "/images/logo.jpeg",
             })
           }}
         />

@@ -16,7 +16,7 @@ export default async function Home() {
   let tags: string[] = []
   try {
     marbles = await getAllMarbles()
-  } catch {}
+  } catch { }
   try {
     const raw = await getAllTags()
     const arr = Array.isArray(raw) ? (raw as any[]) : []
@@ -41,7 +41,7 @@ export default async function Home() {
       .map((s: string) => s.trim())
       .filter((s: string) => s && s !== "[object Object]")
     tags = Array.from(new Set(norm))
-  } catch {}
+  } catch { }
 
   const featured = marbles.slice(0, 8)
 
@@ -55,19 +55,19 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div>
-        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">{t(locale, "home.heroTitle")}</h1>
-        <p className="text-muted-foreground text-lg mb-6">{t(locale, "home.heroSubtitle")}</p>
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">{t(locale, "home.heroTitle")}</h1>
+              <p className="text-muted-foreground text-lg mb-6">{t(locale, "home.heroSubtitle")}</p>
               <div className="flex gap-3">
                 <Link href="/products">
-          <Button size="lg">{t(locale, "home.ctaBrowse")}</Button>
+                  <Button size="lg">{t(locale, "home.ctaBrowse")}</Button>
                 </Link>
                 <Link href="/products">
-          <Button size="lg" variant="outline">{t(locale, "home.ctaExplore")}</Button>
+                  <Button size="lg" variant="outline">{t(locale, "home.ctaExplore")}</Button>
                 </Link>
               </div>
             </div>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-muted">
-              <Image src="/images/marimex.jpg" alt="Marimex" fill className="object-cover" priority />
+              <Image src="/images/logo.jpeg" alt="Marimex" fill className="object-cover" priority />
             </div>
           </div>
         </div>

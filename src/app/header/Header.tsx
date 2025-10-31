@@ -79,7 +79,7 @@ export function Header() {
   }
 
   return (
-  <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="mx-auto h-16 max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center">
         {/* Mobile Bar */}
         <div className="flex w-full items-center justify-between md:hidden">
@@ -102,7 +102,7 @@ export function Header() {
               <SheetTitle className="sr-only">Main navigation</SheetTitle>
               {/* Mobile Logo */}
               <div className="flex items-center gap-3 pb-6 border-b border-border/50">
-                <Image src="/images/marimex.jpg" alt="Marimex logo" width={32} height={32} className="rounded-lg" />
+                <Image src="/images/logo.jpeg" alt="Marimex logo" width={32} height={32} className="rounded-lg" />
                 <span className="text-lg font-bold">{t(locale, "brand")}</span>
               </div>
               {/* Mobile Navigation */}
@@ -141,12 +141,12 @@ export function Header() {
           </Sheet>
           {/* Center: Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/marimex.jpg" alt="Marimex logo" width={32} height={32} className="rounded-lg" />
+            <Image src="/images/logo.jpeg" alt="Marimex logo" width={32} height={32} className="rounded-lg" />
             <span className="text-base font-bold">{t(locale, "brand")}</span>
           </Link>
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
-      {user ? (
+            {user ? (
               <Link href="/profile" aria-label="Profile">
                 <div className="h-8 w-8 rounded-full bg-foreground text-background flex items-center justify-center text-sm font-bold uppercase">
                   {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
@@ -154,7 +154,7 @@ export function Header() {
               </Link>
             ) : (
               <Link href="/login">
-        <Button variant="outline" size="sm">{t(locale, "auth.common.login")}</Button>
+                <Button variant="outline" size="sm">{t(locale, "auth.common.login")}</Button>
               </Link>
             )}
             <Link href="/cart" className="relative">
@@ -209,15 +209,15 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group transition-transform hover:scale-105 duration-200">
             <div className="relative">
-              <Image src="/images/marimex.jpg" alt="Marimex logo" width={40} height={40} className="rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-200" priority />
+              <Image src="/images/logo.jpeg" alt="Marimex logo" width={40} height={40} className="rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-200" priority />
             </div>
             <span className="text-xl font-bold text-foreground">{t(locale, "brand")}</span>
           </Link>
 
           {/* Desktop Navigation */}
-      <NavigationMenu>
+          <NavigationMenu>
             <NavigationMenuList className="flex items-center gap-2">
-        {menuItems.map((item) => {
+              {menuItems.map((item) => {
                 const active = pathname === item.href
                 return (
                   <NavigationMenuItem key={item.href}>
@@ -235,77 +235,76 @@ export function Header() {
 
           {/* Auth + Cart + Language */}
           <div className="flex items-center gap-3">
-      {user ? (
-            <Link href="/profile" className="relative" aria-label="Profile">
-              <div className="h-9 w-9 rounded-full bg-foreground text-background flex items-center justify-center font-bold uppercase">
-                {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
-              </div>
-            </Link>
-          ) : (
-            <Link href="/login">
-        <Button variant="outline" size="sm">{t(locale, "auth.common.login")}</Button>
-            </Link>
-          )}
-          <Link href="/cart" className="relative">
-            <Button variant="ghost" size="icon" aria-label="Open cart">
-              <ShoppingCart className="h-5 w-5" />
-            </Button>
-            {totalCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 min-w-[1.1rem] px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center">
-                {totalCount}
-              </span>
+            {user ? (
+              <Link href="/profile" className="relative" aria-label="Profile">
+                <div className="h-9 w-9 rounded-full bg-foreground text-background flex items-center justify-center font-bold uppercase">
+                  {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
+                </div>
+              </Link>
+            ) : (
+              <Link href="/login">
+                <Button variant="outline" size="sm">{t(locale, "auth.common.login")}</Button>
+              </Link>
             )}
-          </Link>
-          {/* Desktop social links */}
-          <div className="hidden md:flex items-center gap-3">
-            <a href="https://www.facebook.com/karouicommercial" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground">
-              <Facebook className="h-5 w-5" />
-            </a>
-            <a href="https://www.instagram.com/mari.mex13/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground">
-              <Instagram className="h-5 w-5" />
-            </a>
-            <a href="https://www.linkedin.com/company/108663309/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground">
-              <Linkedin className="h-5 w-5" />
-            </a>
-          </div>
-          <ThemeToggle mode="icon" />
-          <div className="relative">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setLangOpen((v) => !v)}
-            aria-haspopup="listbox"
-            aria-expanded={langOpen}
-            aria-label={`Select language (current: ${locale.toUpperCase()})`}
-            className="inline-flex items-center gap-2"
-          >
-            <span className="text-lg leading-none">{localeFlag(locale)}</span>
-            <span className="font-medium">{locale.toUpperCase()}</span>
-          </Button>
-          {langOpen && (
-            <div
-              role="listbox"
-              tabIndex={-1}
-              className="absolute right-0 mt-2 w-44 max-h-60 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md z-50"
-              onMouseLeave={() => setLangOpen(false)}
-            >
-              {allLocales.map((l) => (
-                <button
-                  key={l.code}
-                  role="option"
-                  aria-selected={locale === l.code}
-                  onClick={() => selectLocale(l.code)}
-                  className={`w-full px-3 py-2 text-left flex items-center gap-2 hover:bg-accent hover:text-accent-foreground ${
-                    locale === l.code ? "bg-accent/50" : ""
-                  }`}
-                >
-                  <span className="text-lg leading-none">{l.flag}</span>
-                  <span className="text-sm font-medium">{l.label}</span>
-                </button>
-              ))}
+            <Link href="/cart" className="relative">
+              <Button variant="ghost" size="icon" aria-label="Open cart">
+                <ShoppingCart className="h-5 w-5" />
+              </Button>
+              {totalCount > 0 && (
+                <span className="absolute -top-1 -right-1 h-5 min-w-[1.1rem] px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center">
+                  {totalCount}
+                </span>
+              )}
+            </Link>
+            {/* Desktop social links */}
+            <div className="hidden md:flex items-center gap-3">
+              <a href="https://www.facebook.com/karouicommercial" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-muted-foreground hover:text-foreground">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="https://www.instagram.com/mari.mex13/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="https://www.linkedin.com/company/108663309/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground">
+                <Linkedin className="h-5 w-5" />
+              </a>
             </div>
-          )}
-          </div>
+            <ThemeToggle mode="icon" />
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setLangOpen((v) => !v)}
+                aria-haspopup="listbox"
+                aria-expanded={langOpen}
+                aria-label={`Select language (current: ${locale.toUpperCase()})`}
+                className="inline-flex items-center gap-2"
+              >
+                <span className="text-lg leading-none">{localeFlag(locale)}</span>
+                <span className="font-medium">{locale.toUpperCase()}</span>
+              </Button>
+              {langOpen && (
+                <div
+                  role="listbox"
+                  tabIndex={-1}
+                  className="absolute right-0 mt-2 w-44 max-h-60 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md z-50"
+                  onMouseLeave={() => setLangOpen(false)}
+                >
+                  {allLocales.map((l) => (
+                    <button
+                      key={l.code}
+                      role="option"
+                      aria-selected={locale === l.code}
+                      onClick={() => selectLocale(l.code)}
+                      className={`w-full px-3 py-2 text-left flex items-center gap-2 hover:bg-accent hover:text-accent-foreground ${locale === l.code ? "bg-accent/50" : ""
+                        }`}
+                    >
+                      <span className="text-lg leading-none">{l.flag}</span>
+                      <span className="text-sm font-medium">{l.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

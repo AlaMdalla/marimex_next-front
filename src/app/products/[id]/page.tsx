@@ -34,11 +34,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   let product: any = null
   try {
     product = await getMarbleById(id)
-  } catch {}
+  } catch { }
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://marimexste.com"
   const titleBase = product?.name ? `${product.name} | Marbre Tunisie – Marimex` : "Produit | Marimex"
   const desc = product?.description || product?.descriptions || "Découvrez nos produits en marbre et outillage en Tunisie."
-  const images: string[] = product?.imageurl ? [product.imageurl] : ["/images/marimex.jpg"]
+  const images: string[] = product?.imageurl ? [product.imageurl] : ["/images/logo.jpeg"]
   return {
     title: titleBase,
     description: desc,
@@ -141,7 +141,7 @@ export default async function ProductDetailsPage({ params }: Params) {
   }
   const mockFeatures = [
     "Premium quality materials",
-    "Expert craftsmanship", 
+    "Expert craftsmanship",
     "Durable construction",
     "Easy maintenance"
   ];
@@ -198,8 +198,8 @@ export default async function ProductDetailsPage({ params }: Params) {
       {/* Breadcrumb */}
       <div className="bg-background border-b border">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <Link 
-            href="/products" 
+          <Link
+            href="/products"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -221,16 +221,16 @@ export default async function ProductDetailsPage({ params }: Params) {
                 priority
               />
               <div className="absolute top-4 right-4 flex gap-2">
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
+                <Button
+                  size="icon"
+                  variant="ghost"
                   className="bg-background/90 hover:bg-background backdrop-blur-sm rounded-full shadow-md"
                 >
                   <Heart className="h-4 w-4" />
                 </Button>
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
+                <Button
+                  size="icon"
+                  variant="ghost"
                   className="bg-background/90 hover:bg-background backdrop-blur-sm rounded-full shadow-md"
                 >
                   <Share2 className="h-4 w-4" />
@@ -246,23 +246,22 @@ export default async function ProductDetailsPage({ params }: Params) {
               <h1 className="text-4xl font-bold mb-3">
                 {product.name}
               </h1>
-              
-      {/* Rating from comments */}
+
+              {/* Rating from comments */}
               <div className="flex items-center gap-4 mb-4">
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-5 w-5 ${
-        i < Math.floor(avgRating)
+                      className={`h-5 w-5 ${i < Math.floor(avgRating)
                           ? "fill-yellow-400 text-yellow-400"
                           : "text-muted-foreground"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
                 <span className="text-sm font-medium">
-      {avgRating.toFixed(1)} ({reviewsCount} reviews)
+                  {avgRating.toFixed(1)} ({reviewsCount} reviews)
                 </span>
               </div>
 
@@ -351,8 +350,8 @@ export default async function ProductDetailsPage({ params }: Params) {
           </CardContent>
         </Card>
 
-  {/* Comments */}
-  <CommentsSection marbleId={String(product._id || product.id)} />
+        {/* Comments */}
+        <CommentsSection marbleId={String(product._id || product.id)} />
 
         {/* Related Products Section based on tags */}
         <div className="mt-16">
@@ -376,16 +375,17 @@ export default async function ProductDetailsPage({ params }: Params) {
               {related.map((p: any) => {
                 const rid = String(p._id || p.id)
                 return (
-                <Link key={rid} href={`/products/${rid}`} className="group rounded-xl border overflow-hidden hover:shadow-md transition">
-                  <div className="relative aspect-square bg-muted">
-                    <Image src={p.imageurl || "/placeholder-image.jpg"} alt={p.name} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
-                  </div>
-                  <div className="p-3">
-                    <div className="text-sm font-medium line-clamp-1">{p.name}</div>
-                    <div className="text-sm text-muted-foreground mt-1">{Array.isArray(p.tags) ? p.tags.slice(0,2).join(", ") : ""}</div>
-                  </div>
-                </Link>
-                )})}
+                  <Link key={rid} href={`/products/${rid}`} className="group rounded-xl border overflow-hidden hover:shadow-md transition">
+                    <div className="relative aspect-square bg-muted">
+                      <Image src={p.imageurl || "/placeholder-image.jpg"} alt={p.name} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <div className="p-3">
+                      <div className="text-sm font-medium line-clamp-1">{p.name}</div>
+                      <div className="text-sm text-muted-foreground mt-1">{Array.isArray(p.tags) ? p.tags.slice(0, 2).join(", ") : ""}</div>
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>
