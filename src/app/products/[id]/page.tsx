@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Star, Heart, ShoppingCart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
+import { ArrowLeft, Star, Heart, ShoppingCart, Share2 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { getMarbleById, getCommentsByMarbleId, getMarblesByTag, getAllMarbles } from "@/services/marbles";
 import { Button } from "@/components/ui/button";
 import { AddToCartButton } from "@/components/ui/add-to-cart";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+
 import { Separator } from "@/components/ui/separator";
 import { CommentsSection } from "@/components/comments/CommentsSection";
 import { cookies } from "next/headers";
@@ -139,18 +139,7 @@ export default async function ProductDetailsPage({ params }: Params) {
   } catch {
     // ignore rating errors, default to 0
   }
-  const mockFeatures = [
-    "Premium quality materials",
-    "Expert craftsmanship",
-    "Durable construction",
-    "Easy maintenance"
-  ];
-  const mockSpecs = {
-    "Material": "Natural marble",
-    "Finish": "Polished",
-    "Origin": "Premium quarry",
-    "Certification": "Quality assured"
-  };
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -280,27 +269,7 @@ export default async function ProductDetailsPage({ params }: Params) {
                 {product.description || product.descriptions}
               </p>
             </div>
-
             <Separator className="bg-border" />
-
-            {/* Features */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">
-                {t(locale, "common.keyFeatures")}
-              </h3>
-              <ul className="space-y-3">
-                {mockFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3 text-muted-foreground">
-                    <div className="h-2 w-2 bg-gray-400 dark:bg-gray-600 rounded-full flex-shrink-0" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <Separator className="bg-border" />
-
-            {/* Actions */}
             <div className="space-y-4">
               <div className="flex gap-3">
                 <AddToCartButton
@@ -311,44 +280,9 @@ export default async function ProductDetailsPage({ params }: Params) {
                   <Heart className="h-5 w-5" />
                 </Button>
               </div>
-
-              {/* Service Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Truck className="h-4 w-4" />
-                  <span>{t(locale, "common.freeShipping")}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="h-4 w-4" />
-                  <span>{t(locale, "common.warranty")}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <RotateCcw className="h-4 w-4" />
-                  <span>{t(locale, "common.easyReturns")}</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-
-        {/* Product Specifications */}
-        <Card className="mt-12 border">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">
-              {t(locale, "common.productSpecifications")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Object.entries(mockSpecs).map(([key, value]) => (
-                <div key={key} className="flex justify-between items-center py-2 border-b border last:border-b-0">
-                  <span className="font-medium text-muted-foreground">{key}</span>
-                  <span className="font-semibold">{value}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Comments */}
         <CommentsSection marbleId={String(product._id || product.id)} />
