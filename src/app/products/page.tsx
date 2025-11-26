@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useMemo, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ interface Product {
   imageurl: string;
   rating?: number; // Optional, as rating isn't guaranteed
   reviewCount?: number; // Optional
+  tags?: string[] | string;
 }
 
 // Debounce utility
@@ -114,22 +116,20 @@ function FiltersSection({
           <div className="flex border border-neutral-300 dark:border-neutral-600 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-2 transition-colors ${
-                viewMode === "grid"
+              className={`p-2 transition-colors ${viewMode === "grid"
                   ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
                   : "bg-white text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-              }`}
+                }`}
               aria-label="Switch to grid view"
             >
               <Grid className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode("list")}
-              className={`p-2 transition-colors ${
-                viewMode === "list"
+              className={`p-2 transition-colors ${viewMode === "list"
                   ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
                   : "bg-white text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"
-              }`}
+                }`}
               aria-label="Switch to list view"
             >
               <List className="w-4 h-4" />
@@ -177,17 +177,15 @@ function ProductCard({ product, viewMode, locale, rating, reviewCount }: { produ
 
   return (
     <div
-      className={`group transition-all duration-300 hover:shadow-lg border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 ${
-        viewMode === "grid" ? "hover:-translate-y-1 rounded-xl" : "hover:shadow-md rounded-lg"
-      } ${viewMode === "list" ? "flex flex-row overflow-hidden" : ""}`}
+      className={`group transition-all duration-300 hover:shadow-lg border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 ${viewMode === "grid" ? "hover:-translate-y-1 rounded-xl" : "hover:shadow-md rounded-lg"
+        } ${viewMode === "list" ? "flex flex-row overflow-hidden" : ""}`}
       role="article"
-  aria-labelledby={`product-${String(product._id || (product as any).id)}-title`}
+      aria-labelledby={`product-${String(product._id || (product as any).id)}-title`}
     >
       <div className={`p-0 ${viewMode === "list" ? "w-48 flex-shrink-0" : ""}`}>
         <div
-          className={`relative overflow-hidden ${
-            viewMode === "grid" ? "w-full h-48 rounded-t-xl" : "w-full h-full rounded-l-lg"
-          }`}
+          className={`relative overflow-hidden ${viewMode === "grid" ? "w-full h-48 rounded-t-xl" : "w-full h-full rounded-l-lg"
+            }`}
         >
           <Image
             src={product.imageurl || "/placeholder-image.jpg"} // Fallback image
@@ -323,7 +321,7 @@ function PaginationControls({
       </Button>
 
       <div className="flex space-x-1">
-  {getVisiblePageNumbers().map((pageNumber, index) => (
+        {getVisiblePageNumbers().map((pageNumber, index) => (
           <div key={index}>
             {pageNumber === "..." ? (
               <span className="px-3 py-2 text-neutral-500 dark:text-neutral-400">...</span>
@@ -331,12 +329,11 @@ function PaginationControls({
               <Button
                 variant={currentPage === pageNumber ? "default" : "outline"}
                 size="sm"
-    onClick={() => goToPage(pageNumber as number)}
-                className={`min-w-[40px] ${
-                  currentPage === pageNumber
+                onClick={() => goToPage(pageNumber as number)}
+                className={`min-w-[40px] ${currentPage === pageNumber
                     ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-900"
                     : "border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                }`}
+                  }`}
                 aria-label={`Page ${pageNumber}`}
                 aria-current={currentPage === pageNumber ? "page" : undefined}
               >
@@ -377,14 +374,12 @@ function LoadingSkeleton({ viewMode }: { viewMode: "grid" | "list" }) {
       {Array.from({ length: 8 }).map((_, i) => (
         <div
           key={i}
-          className={`animate-pulse border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 ${
-            viewMode === "grid" ? "rounded-xl" : "flex flex-row rounded-lg"
-          }`}
+          className={`animate-pulse border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 ${viewMode === "grid" ? "rounded-xl" : "flex flex-row rounded-lg"
+            }`}
         >
           <div
-            className={`bg-neutral-300 dark:bg-neutral-700 ${
-              viewMode === "grid" ? "w-full h-48 rounded-t-xl" : "w-48 h-32 rounded-l-lg"
-            }`}
+            className={`bg-neutral-300 dark:bg-neutral-700 ${viewMode === "grid" ? "w-full h-48 rounded-t-xl" : "w-48 h-32 rounded-l-lg"
+              }`}
           ></div>
           <div className={viewMode === "grid" ? "p-5" : "p-6 flex-1"}>
             <div className="h-6 bg-neutral-300 dark:bg-neutral-700 rounded w-3/4 mb-2"></div>
@@ -400,6 +395,8 @@ function LoadingSkeleton({ viewMode }: { viewMode: "grid" | "list" }) {
 
 // Main Products Page Component
 export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const tagFilter = searchParams.get("tag") || "";
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -449,6 +446,17 @@ export default function ProductsPage() {
   const filteredAndSortedProducts = useMemo(() => {
     return products
       .filter((product) => {
+        // Tag filter
+        if (tagFilter) {
+          let tags: string[] = [];
+          if (Array.isArray(product.tags)) {
+            tags = product.tags.map((t: string) => typeof t === "string" ? t.toLowerCase() : "");
+          } else if (typeof product.tags === "string") {
+            tags = [product.tags.toLowerCase()];
+          }
+          if (!tags.includes(tagFilter.toLowerCase())) return false;
+        }
+
         const matchesSearch =
           product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           product.description?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -483,7 +491,7 @@ export default function ProductsPage() {
             return 0;
         }
       });
-  }, [products, searchTerm, priceRange, sortBy]);
+  }, [products, searchTerm, priceRange, sortBy, tagFilter]);
 
   // Pagination logic
   const totalProducts = filteredAndSortedProducts.length;
@@ -502,31 +510,31 @@ export default function ProductsPage() {
       .filter((id) => id)
     const idsToFetch = ids.filter((id) => ratings[id] === undefined)
     if (idsToFetch.length === 0) return
-    ;(async () => {
-      try {
-        const results = await Promise.all(
-          idsToFetch.map(async (id) => {
-            try {
-              const comments = await getCommentsByMarbleId(id)
-              const count = comments?.length || 0
-              const avg = count > 0 ? comments.reduce((a, c) => a + (Number((c as any).rating) || 0), 0) / count : 0
-              return { id, avg, count }
-            } catch {
-              return { id, avg: 0, count: 0 }
-            }
-          })
-        )
-        if (!cancelled) {
-          setRatings((prev) => {
-            const next = { ...prev }
-            for (const r of results) next[r.id] = { avg: r.avg, count: r.count }
-            return next
-          })
+      ; (async () => {
+        try {
+          const results = await Promise.all(
+            idsToFetch.map(async (id) => {
+              try {
+                const comments = await getCommentsByMarbleId(id)
+                const count = comments?.length || 0
+                const avg = count > 0 ? comments.reduce((a, c) => a + (Number((c as any).rating) || 0), 0) / count : 0
+                return { id, avg, count }
+              } catch {
+                return { id, avg: 0, count: 0 }
+              }
+            })
+          )
+          if (!cancelled) {
+            setRatings((prev) => {
+              const next = { ...prev }
+              for (const r of results) next[r.id] = { avg: r.avg, count: r.count }
+              return next
+            })
+          }
+        } catch {
+          // ignore
         }
-      } catch {
-        // ignore
-      }
-    })()
+      })()
     return () => {
       cancelled = true
     }
@@ -545,11 +553,11 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       {/* Hero Section */}
-  <div className="relative bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
+      <div className="relative bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-4">
-      {t(locale, "common.products")}
+              {t(locale, "common.products")}
             </h1>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
               {t(locale, "common.productsHeroDescription")}
