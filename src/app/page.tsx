@@ -113,7 +113,12 @@ export default async function Home() {
           ) : (
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <Link key={tag} href={`/products?tag=${encodeURIComponent(tag)}`} className="px-3 py-1.5 rounded-full border text-sm hover:bg-accent hover:text-accent-foreground">
+                <Link
+                  key={tag}
+                  href={`/products?tag=${encodeURIComponent(tag)}`}
+                  className="px-3 py-1.5 rounded-full border text-sm hover:bg-accent hover:text-accent-foreground cursor-pointer focus:outline-none"
+                  aria-label={tag}
+                >
                   {tag}
                 </Link>
               ))}
