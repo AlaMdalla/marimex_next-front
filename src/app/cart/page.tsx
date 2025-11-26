@@ -112,8 +112,8 @@ export default function CartPage() {
   }, [])
 
   const confirmOrder = () => {
-    if (!phoneNumber.trim() || !orderName.trim() || !location) {
-  alert(t(locale, "cart.alerts.required"))
+    if (!phoneNumber.trim() || !orderName.trim()) {
+      alert(t(locale, "cart.alerts.required"))
       return
     }
     setShowConfirmationModal(true)
@@ -413,7 +413,7 @@ export default function CartPage() {
                 {/* Checkout Button */}
                 <Button
                   onClick={confirmOrder}
-                  disabled={!phoneNumber.trim() || !orderName.trim() || !location}
+                  disabled={!phoneNumber.trim() || !orderName.trim()}
                   className="w-full h-12"
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
