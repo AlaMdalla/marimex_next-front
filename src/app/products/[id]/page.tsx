@@ -243,8 +243,8 @@ export default async function ProductDetailsPage({ params }: Params) {
                     <Star
                       key={i}
                       className={`h-5 w-5 ${i < Math.floor(avgRating)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-muted-foreground"
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-muted-foreground"
                         }`}
                     />
                   ))}
