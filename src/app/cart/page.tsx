@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, ShoppingCart, Minus, Plus, X, MapPin, Phone, User, Check, Truck, Shield, RotateCcw } from "lucide-react"
+import { ArrowLeft, ShoppingCart, Minus, Plus, X, Phone, User, Check, Truck, Shield, RotateCcw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,16 +14,12 @@ import { formatPrice } from "@/lib/utils"
 import { submitOrder as submitOrderApi } from "@/services/marbles"
 import { getClientLocale } from "@/i18n/client"
 import { t, type Locale } from "@/i18n"
-import { MapPicker } from "@/components/maps/MapPicker"
+// import { MapPicker } from "@/components/maps/MapPicker"
 import { useCart } from "@/contexts/cart-context"
 
 // Using shared cart context (Angular-compatible localStorage shape)
 
-interface Location {
-  lat: number
-  lng: number
-  address?: string
-}
+
 
 export default function CartPage() {
   const [locale, setLocale] = React.useState<Locale>("en")
@@ -33,12 +29,10 @@ export default function CartPage() {
   const { items: cartItems, totalPrice, totalCount, updateQuantity, removeItem: removeFromCart, clear } = useCart()
   const [phoneNumber, setPhoneNumber] = React.useState("")
   const [orderName, setOrderName] = React.useState("")
-  const [location, setLocation] = React.useState<Location | null>(null)
-  const [showMapModal, setShowMapModal] = React.useState(false)
+  // Location state removed
   const [showConfirmationModal, setShowConfirmationModal] = React.useState(false)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
-  const [geoLoading, setGeoLoading] = React.useState(false)
-  const [geoMsg, setGeoMsg] = React.useState<string | null>(null)
+  // Geolocation state removed
 
   const calculateSubtotal = () => {
     return totalPrice
@@ -56,60 +50,9 @@ export default function CartPage() {
     removeFromCart(item.marble.id)
   }
 
-  const handleLocationSelect = (selectedLocation: Location) => {
-    setLocation(selectedLocation)
-    setShowMapModal(false)
-  }
 
-  const useCurrentLocation = React.useCallback(() => {
-    setGeoMsg(null)
-    if (typeof navigator === "undefined" || !navigator.geolocation) {
-      setGeoMsg("Geolocation is not supported in this browser.")
-      return
-    }
-    setGeoLoading(true)
-    const getPos = (opts: PositionOptions) =>
-      new Promise<GeolocationPosition>((resolve, reject) =>
-        navigator.geolocation.getCurrentPosition(resolve, reject, opts)
-      )
 
-    const run = async () => {
-      try {
-        const pos = await getPos({ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
-        return pos
-      } catch (e) {
-        try {
-          const pos2 = await getPos({ enableHighAccuracy: false, timeout: 20000, maximumAge: 300000 })
-          return pos2
-        } catch (e2) {
-          throw e2
-        }
-      }
-    }
 
-    run()
-      .then((pos) => {
-        const lat = pos.coords.latitude
-        const lng = pos.coords.longitude
-        setLocation({ lat, lng })
-        setGeoLoading(false)
-      })
-      .catch(async (error: any) => {
-        let msg = "Failed to get current location."
-        if (error?.code === 1) msg = "Location permission denied."
-        else if (error?.code === 2) msg = "Position unavailable."
-        else if (error?.code === 3) msg = "Location request timed out."
-        if (typeof window !== "undefined" && window.location.protocol !== "https:" && window.location.hostname !== "localhost") {
-          msg += " Enable HTTPS to use geolocation."
-        }
-        try {
-          const perm: any = await (navigator as any).permissions?.query?.({ name: "geolocation" as any })
-          if (perm && perm.state === "denied") msg = "Location permission denied in browser settings."
-        } catch {}
-        setGeoMsg(msg)
-        setGeoLoading(false)
-      })
-  }, [])
 
   const confirmOrder = () => {
     if (!phoneNumber.trim() || !orderName.trim()) {
@@ -127,7 +70,6 @@ export default function CartPage() {
         list_marbles: cartItems.map((item) => ({ marble: item.marble.id, count: item.count })),
         number_of_phone: phoneNumber,
         totalPrice: calculateSubtotal(),
-        location: location ? { lat: location.lat, lng: location.lng, address: location.address } : null,
         order_name: orderName,
       }
 
@@ -180,8 +122,8 @@ export default function CartPage() {
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <Link 
-                href="/products" 
+              <Link
+                href="/products"
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -345,44 +287,7 @@ export default function CartPage() {
                     </div>
                   </div>
 
-                  {/* Location Selection */}
-                  <div>
-                    <Label className="text-sm font-medium mb-2 block">
-                      {t(locale, "cart.address.label")}
-                    </Label>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={() => setShowMapModal(true)}
-                        className="w-full justify-start h-10"
-                      >
-                        <MapPin className="h-4 w-4 mr-2" />
-                        {location ? (
-                          <span className="text-sm">
-                            {location.address || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
-                          </span>
-                        ) : (
-                          <span className="text-muted-foreground">{t(locale, "cart.address.selectLocation")}</span>
-                        )}
-                      </Button>
-                      <Button variant="outline" onClick={useCurrentLocation} disabled={geoLoading} className="h-10 whitespace-nowrap">
-                        {geoLoading ? (
-                          <span className="inline-flex items-center gap-2 text-sm">
-                            <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                            {t(locale, "cart.address.locating")}
-                          </span>
-                        ) : (
-                          t(locale, "cart.address.useMyLocation")
-                        )}
-                      </Button>
-                    </div>
-          {geoMsg ? (
-                      <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
-                        <span>{geoMsg}</span>
-            <Button variant="ghost" size="sm" onClick={useCurrentLocation} disabled={geoLoading}>{t(locale, "common.retry")}</Button>
-                      </div>
-          ) : null}
-                  </div>
+
                 </div>
 
                 <Separator className="bg-border" />
@@ -395,13 +300,13 @@ export default function CartPage() {
                       {formatPrice(calculateSubtotal(), { locale: locale === "fr" ? "fr-FR" : locale === "tn" ? "ar-TN" : locale === "it" ? "it-IT" : locale === "zh" ? "zh-CN" : "en-US" })}
                     </span>
                   </div>
-                  
+
                   <div className="text-xs text-muted-foreground">
                     {t(locale, "cart.summary.shippingNote")}
                   </div>
-                  
+
                   <Separator className="bg-border" />
-                  
+
                   <div className="flex justify-between text-base font-semibold">
                     <span>{t(locale, "cart.summary.estimatedTotal")}</span>
                     <span>
@@ -431,24 +336,7 @@ export default function CartPage() {
         </div>
       </div>
 
-      {/* Map Modal */}
-      <Dialog open={showMapModal} onOpenChange={setShowMapModal}>
-        {showMapModal && (
-          <DialogContent className="max-w-4xl max-h-[80vh]">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-semibold">
-                {t(locale, "cart.mapModal.title")}
-              </DialogTitle>
-              <DialogDescription>
-                {t(locale, "cart.mapModal.description")}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="m-6 mt-0">
-              <MapPicker onSelect={(sel) => handleLocationSelect(sel)} />
-            </div>
-          </DialogContent>
-        )}
-      </Dialog>
+
 
       {/* Confirmation Modal */}
       <Dialog open={showConfirmationModal} onOpenChange={setShowConfirmationModal}>
@@ -513,15 +401,8 @@ export default function CartPage() {
                     </p>
                   </div>
                 </div>
-                
-                {location && (
-                  <div>
-                    <h4 className="font-medium mb-2">{t(locale, "cart.confirmModal.deliveryAddress")}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {location.address || `${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`}
-                    </p>
-                  </div>
-                )}
+
+
               </div>
 
               <Separator className="bg-border" />
