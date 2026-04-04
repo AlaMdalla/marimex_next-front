@@ -10,7 +10,7 @@ const nextConfig = {
   },
   experimental: {
     // Allow LAN device to access dev server assets
-    allowedDevOrigins: ["http://localhost:4200", "http://192.168.100.116:4200"],
+    // (allowedDevOrigins removed; not supported by Next.js)
   },
   turbopack: {
     // Point Turbopack to the correct workspace root
