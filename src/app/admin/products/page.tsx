@@ -43,7 +43,7 @@ export default function AdminProductsPage() {
   const [maxPrice, setMaxPrice] = useState("")
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(9)
-  const [tags, setTags] = useState<string[]>([])
+  const [tags, setTags] = useState<{ name: string; count?: number }[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   const load = useCallback(async () => {
@@ -52,22 +52,22 @@ export default function AdminProductsPage() {
       const data = await getAllMarbles()
       setItems(Array.isArray(data) ? data : [])
     } catch (e: any) {
-  toast.error(e?.message || t(locale, "admin.products.toast.loadFailed"), "Error")
+      toast.error(e?.message || t(locale, "admin.products.toast.loadFailed"), "Error")
     } finally {
       setLoadingList(false)
     }
   }, [])
 
   useEffect(() => {
-  setLocale(getClientLocale())
+    setLocale(getClientLocale())
     load()
   }, [load])
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       try {
         const t = await getAllTags()
-        const arr = Array.isArray(t) ? (t as any[]).map(String) : []
+        const arr = Array.isArray(t) ? t as { name: string; count?: number }[] : []
         setTags(arr)
       } catch {
         setTags([])
@@ -113,7 +113,7 @@ export default function AdminProductsPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name || !form.imageurl) {
-  toast.error(t(locale, "admin.products.toast.validationMissing"), "Validation")
+      toast.error(t(locale, "admin.products.toast.validationMissing"), "Validation")
       return
     }
     const payload: NewMarble = {
@@ -250,18 +250,20 @@ export default function AdminProductsPage() {
             <div className="text-xs text-muted-foreground">{t(locale, "admin.products.filters.noTags")}</div>
           ) : (
             <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => {
-                const active = selectedTags.includes(tag)
+              {tags.map((tag, idx) => {
+                const tagKey = tag.name + '-' + idx
+                const active = selectedTags.includes(tag.name)
                 return (
                   <button
-                    key={tag}
+                    key={tagKey}
                     type="button"
                     onClick={() => {
-                      setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
+                      setSelectedTags((prev) => (prev.includes(tag.name) ? prev.filter((t) => t !== tag.name) : [...prev, tag.name]))
                     }}
                     className={`px-3 py-1 rounded-full border text-xs ${active ? "bg-foreground text-background" : ""}`}
                   >
-                    {tag}
+                    {tag.name}
+                    {typeof tag.count === 'number' && tag.name !== 'All' ? <span className="ml-1 text-muted-foreground">({tag.count})</span> : null}
                   </button>
                 )
               })}
@@ -271,7 +273,7 @@ export default function AdminProductsPage() {
             </div>
           )}
         </div>
-  <div className="mt-3 text-xs text-muted-foreground">{t(locale, "admin.products.filters.showing").replace("{count}", String(filtered.length)).replace("{of}", filtered.length !== items.length ? ` ${t(locale, "common.of")} ${items.length}` : "")}</div>
+        <div className="mt-3 text-xs text-muted-foreground">{t(locale, "admin.products.filters.showing").replace("{count}", String(filtered.length)).replace("{of}", filtered.length !== items.length ? ` ${t(locale, "common.of")} ${items.length}` : "")}</div>
       </section>
       <section className="border rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4">{editId ? t(locale, "admin.products.form.titleUpdate") : t(locale, "admin.products.form.titleAdd")}</h2>
@@ -327,42 +329,42 @@ export default function AdminProductsPage() {
           <div className="text-sm text-muted-foreground">{t(locale, "admin.products.list.empty")}</div>
         ) : (
           <>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {pageItems.map((m) => {
-              const id = String(m._id || m.id)
-              return (
-                <div key={id} className="border rounded-lg overflow-hidden">
-                  <div className="relative aspect-square bg-muted">
-                    <Image src={m.imageurl || "/placeholder-image.jpg"} alt={m.name} fill className="object-cover" />
-                  </div>
-                  <div className="p-3 space-y-2">
-                    <div className="font-medium line-clamp-1">{m.name}</div>
-                    <div className="text-sm text-muted-foreground">${Number(m.price || 0).toFixed(2)}</div>
-                    <div className="flex gap-2">
-                      <button onClick={() => startEdit(m)} className="text-xs px-3 py-1 rounded border">{t(locale, "admin.products.list.edit")}</button>
-                      <button onClick={() => onDelete(id)} className="text-xs px-3 py-1 rounded border border-red-500 text-red-600">{t(locale, "admin.products.list.delete")}</button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {pageItems.map((m) => {
+                const id = String(m._id || m.id)
+                return (
+                  <div key={id} className="border rounded-lg overflow-hidden">
+                    <div className="relative aspect-square bg-muted">
+                      <Image src={m.imageurl || "/placeholder-image.jpg"} alt={m.name} fill className="object-cover" />
+                    </div>
+                    <div className="p-3 space-y-2">
+                      <div className="font-medium line-clamp-1">{m.name}</div>
+                      <div className="text-sm text-muted-foreground">${Number(m.price || 0).toFixed(2)}</div>
+                      <div className="flex gap-2">
+                        <button onClick={() => startEdit(m)} className="text-xs px-3 py-1 rounded border">{t(locale, "admin.products.list.edit")}</button>
+                        <button onClick={() => onDelete(id)} className="text-xs px-3 py-1 rounded border border-red-500 text-red-600">{t(locale, "admin.products.list.delete")}</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )
-            })}
-          </div>
-          {/* Pagination */}
-          <div className="mt-6 flex items-center justify-between gap-3">
-            <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page - 1)} disabled={currentPage === 1}>{t(locale, "admin.products.list.prev")}</button>
-            <div className="flex flex-wrap items-center gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).slice(Math.max(0, currentPage - 3), Math.max(0, currentPage - 3) + 7).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => changePage(p)}
-                  className={`px-3 py-2 border rounded ${p === currentPage ? "bg-foreground text-background" : ""}`}
-                >
-                  {p}
-                </button>
-              ))}
+                )
+              })}
             </div>
-            <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page + 1)} disabled={currentPage === totalPages}>{t(locale, "admin.products.list.next")}</button>
-          </div>
+            {/* Pagination */}
+            <div className="mt-6 flex items-center justify-between gap-3">
+              <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page - 1)} disabled={currentPage === 1}>{t(locale, "admin.products.list.prev")}</button>
+              <div className="flex flex-wrap items-center gap-2">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).slice(Math.max(0, currentPage - 3), Math.max(0, currentPage - 3) + 7).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => changePage(p)}
+                    className={`px-3 py-2 border rounded ${p === currentPage ? "bg-foreground text-background" : ""}`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+              <button className="px-3 py-2 border rounded disabled:opacity-50" onClick={() => changePage(page + 1)} disabled={currentPage === totalPages}>{t(locale, "admin.products.list.next")}</button>
+            </div>
           </>
         )}
       </section>
