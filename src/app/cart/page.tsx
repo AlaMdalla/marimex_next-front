@@ -291,7 +291,7 @@ export default function CartPage() {
 
                   <div>
                     <Label htmlFor="address" className="text-sm font-medium">
-                      Address
+                      {t(locale, "cart.form.address")}
                     </Label>
                     <div className="relative mt-1">
                       <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -300,7 +300,7 @@ export default function CartPage() {
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        placeholder={t(locale, "cart.customer.addressPlaceholder")}
+                        placeholder={t(locale, "cart.form.address_placeholder")}
                         className="pl-10"
                         required
                       />
