@@ -291,7 +291,7 @@ export default function CartPage() {
 
                   <div>
                     <Label htmlFor="address" className="text-sm font-medium">
-                      {t(locale, "cart.customer.address")}
+                      Address
                     </Label>
                     <div className="relative mt-1">
                       <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
