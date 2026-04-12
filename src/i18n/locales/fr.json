@@ -80,6 +80,14 @@
       "namePlaceholder": "Votre nom complet",
       "phonePlaceholder": "+216 (___) ___-____"
     },
+    "form": {
+      "name": "Nom Complet",
+      "phone": "Numéro de Téléphone",
+      "address": "Adresse",
+      "name_placeholder": "Votre nom complet",
+      "phone_placeholder": "+216 (___) ___-____",
+      "address_placeholder": "Votre adresse"
+    },
     "address": {
       "label": "Adresse de Livraison",
   "selectLocation": "Sélectionner votre localisation",

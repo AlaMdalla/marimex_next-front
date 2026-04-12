@@ -157,6 +157,14 @@
     "features": {"freeDelivery": "免费配送", "qualityGuarantee": "质量保证", "easyReturns": "轻松退货"},
     "summary": {"title": "订单摘要", "subtotal": "小计", "estimatedTotal": "预计总计", "shippingNote": "运费将在结算时计算"},
   "customer": {"fullName": "姓名", "phoneNumber": "电话", "namePlaceholder": "你的姓名", "phonePlaceholder": "+216 (___) ___-____"},
+  "form": {
+    "name": "姓名",
+    "phone": "电话",
+    "address": "地址",
+    "name_placeholder": "你的姓名",
+    "phone_placeholder": "+216 (___) ___-____",
+    "address_placeholder": "你的地址"
+  },
   "address": {"label": "收货地址", "selectLocation": "选择你的位置", "useMyLocation": "使用我的位置", "locating": "正在定位…"},
     "actions": {"checkout": "下单", "continueShopping": "继续购物", "cancel": "取消", "confirm": "确认", "processing": "处理中..."},
     "mapModal": {"title": "选择你的位置", "description": "点击地图设置收货地址", "placeholder": "此处为交互式地图集成", "useThis": "使用此位置"},

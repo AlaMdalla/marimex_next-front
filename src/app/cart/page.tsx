@@ -26,9 +26,10 @@ export default function CartPage() {
   React.useEffect(() => {
     setLocale(getClientLocale())
   }, [])
-  const { items: cartItems, totalPrice, totalCount, updateQuantity, removeItem: removeFromCart, clear } = useCart()
+  const { items: cartItems, totalPrice, updateQuantity, removeItem: removeFromCart, clear } = useCart()
   const [phoneNumber, setPhoneNumber] = React.useState("")
   const [orderName, setOrderName] = React.useState("")
+  const [address, setAddress] = React.useState("")
   // Location state removed
   const [showConfirmationModal, setShowConfirmationModal] = React.useState(false)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -55,7 +56,7 @@ export default function CartPage() {
 
 
   const confirmOrder = () => {
-    if (!phoneNumber.trim() || !orderName.trim()) {
+    if (!phoneNumber.trim() || !orderName.trim() || !address.trim()) {
       alert(t(locale, "cart.alerts.required"))
       return
     }
@@ -71,6 +72,7 @@ export default function CartPage() {
         number_of_phone: phoneNumber,
         totalPrice: calculateSubtotal(),
         order_name: orderName,
+        address: address,
       }
 
       const res = await submitOrderApi(payload)
@@ -287,6 +289,24 @@ export default function CartPage() {
                     </div>
                   </div>
 
+                  <div>
+                    <Label htmlFor="address" className="text-sm font-medium">
+                      {t(locale, "cart.customer.address")}
+                    </Label>
+                    <div className="relative mt-1">
+                      <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        id="address"
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={t(locale, "cart.customer.addressPlaceholder")}
+                        className="pl-10"
+                        required
+                      />
+                    </div>
+                  </div>
+
 
                 </div>
 
@@ -318,7 +338,7 @@ export default function CartPage() {
                 {/* Checkout Button */}
                 <Button
                   onClick={confirmOrder}
-                  disabled={!phoneNumber.trim() || !orderName.trim()}
+                  disabled={!phoneNumber.trim() || !orderName.trim() || !address.trim()}
                   className="w-full h-12"
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
@@ -398,6 +418,9 @@ export default function CartPage() {
                     </p>
                     <p className="text-muted-foreground">
                       <span className="font-medium text-foreground">{t(locale, "cart.customer.phoneNumber")}:</span> {phoneNumber}
+                    </p>
+                    <p className="text-muted-foreground">
+                      <span className="font-medium text-foreground">{t(locale, "cart.customer.address")}:</span> {address}
                     </p>
                   </div>
                 </div>

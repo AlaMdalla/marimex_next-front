@@ -185,6 +185,14 @@
       "namePlaceholder": "اسمك الكامل",
       "phonePlaceholder": "+216 (___) ___-____"
     },
+    "form": {
+      "name": "الاسم الكامل",
+      "phone": "رقم التلفون",
+      "address": "العنوان",
+      "name_placeholder": "اسمك الكامل",
+      "phone_placeholder": "+216 (___) ___-____",
+      "address_placeholder": "عنوانك"
+    },
     "address": {
       "label": "عنوان التوصيل",
   "selectLocation": "اختار بلاصتك",
