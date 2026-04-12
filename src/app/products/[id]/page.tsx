@@ -269,6 +269,26 @@ export default async function ProductDetailsPage({ params }: Params) {
                 {product.description || product.descriptions}
               </p>
             </div>
+
+            {/* Tags */}
+            {product.tags && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3">
+                  Tags
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {(Array.isArray(product.tags) ? product.tags : String(product.tags).split(',').map((t: string) => t.trim())).map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-full bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <Separator className="bg-border" />
             <div className="space-y-4">
               <div className="flex gap-3">

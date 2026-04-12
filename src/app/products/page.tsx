@@ -220,6 +220,15 @@ function ProductCard({ product, viewMode, locale, rating, reviewCount }: { produ
             <p className="text-neutral-600 dark:text-neutral-400 mb-3 leading-relaxed line-clamp-2">
               {product.description}
             </p>
+            {product.tags && (
+              <div className="flex flex-wrap gap-2 mb-3">
+                {(Array.isArray(product.tags) ? product.tags : String(product.tags).split(',').map(t => t.trim())).map((tag: string) => (
+                  <span key={tag} className="text-xs bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 px-2.5 py-1 rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="flex items-center gap-2 mb-4">
               <div className="flex items-center gap-1">{renderStars(rating ?? product.rating ?? 0)}</div>
               <span className="text-sm text-neutral-500 dark:text-neutral-400">

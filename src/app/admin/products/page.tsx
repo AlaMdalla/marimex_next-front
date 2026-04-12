@@ -15,6 +15,7 @@ type FormState = {
   stars: string
   imageurl: string
   descriptions: string
+  tags: string[]
 }
 
 const emptyForm: FormState = {
@@ -24,11 +25,17 @@ const emptyForm: FormState = {
   stars: "0",
   imageurl: "",
   descriptions: "",
+  tags: [],
+}
+
+type TagFormState = {
+  input: string
 }
 
 export default function AdminProductsPage() {
   const [locale, setLocale] = useState<Locale>("en")
   const [form, setForm] = useState<FormState>(emptyForm)
+  const [tagInput, setTagInput] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [items, setItems] = useState<Marble[]>([])
@@ -108,6 +115,24 @@ export default function AdminProductsPage() {
   const reset = () => {
     setForm(emptyForm)
     setEditId(null)
+    setTagInput("")
+  }
+
+  const addTag = () => {
+    if (tagInput.trim() && !form.tags.includes(tagInput.trim())) {
+      setForm((f) => ({
+        ...f,
+        tags: [...f.tags, tagInput.trim()]
+      }))
+      setTagInput("")
+    }
+  }
+
+  const removeTag = (tagToRemove: string) => {
+    setForm((f) => ({
+      ...f,
+      tags: f.tags.filter((tag) => tag !== tagToRemove)
+    }))
   }
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -124,6 +149,7 @@ export default function AdminProductsPage() {
       imageurl: form.imageurl,
       descriptions: form.descriptions,
       description: form.descriptions,
+      tags: form.tags.length > 0 ? form.tags : [],
     }
     setSubmitting(true)
     try {
@@ -163,8 +189,12 @@ export default function AdminProductsPage() {
       stars: String((m as any).stars ?? 0),
       imageurl: m.imageurl || "",
       descriptions: (m as any).descriptions || m.description || "",
+      tags: Array.isArray(m.tags) ? (m.tags as any[]).map(String) : [],
     })
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    setTagInput("")
+    if (typeof globalThis.window !== "undefined") {
+      globalThis.window.scrollTo({ top: 0, behavior: "smooth" })
+    }
   }
 
   const filtered = useMemo(() => {
@@ -312,6 +342,35 @@ export default function AdminProductsPage() {
             <span className="text-sm">{t(locale, "admin.products.form.description")}</span>
             <textarea name="descriptions" rows={4} value={form.descriptions} onChange={onChange} className="border rounded px-3 py-2" />
           </label>
+          <label className="grid gap-1 md:col-span-2">
+            <span className="text-sm">Tags</span>
+            <div className="flex gap-2 mb-2">
+              <input
+                type="text"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    addTag()
+                  }
+                }}
+                placeholder="Add tag (press Enter or click Add)"
+                className="border rounded px-3 py-2 flex-1"
+              />
+              <button type="button" onClick={addTag} className="px-4 py-2 rounded bg-blue-500 text-white text-sm">Add Tag</button>
+            </div>
+            {form.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {form.tags.map((tag, idx) => (
+                  <span key={tag + '-' + idx} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                    {tag}
+                    <button type="button" onClick={() => removeTag(tag)} className="text-blue-600 hover:text-blue-900">×</button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </label>
           <div className="md:col-span-2 flex gap-3">
             <button disabled={submitting} className="px-4 py-2 rounded bg-black text-white disabled:opacity-50">
               {editId ? t(locale, "admin.products.form.update") : t(locale, "admin.products.form.submit")}
@@ -340,6 +399,15 @@ export default function AdminProductsPage() {
                     <div className="p-3 space-y-2">
                       <div className="font-medium line-clamp-1">{m.name}</div>
                       <div className="text-sm text-muted-foreground">${Number(m.price || 0).toFixed(2)}</div>
+                      {Array.isArray(m.tags) && m.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {(m.tags as any[]).map((tag, idx) => (
+                            <span key={String(tag) + '-' + idx} className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded">
+                              {String(tag)}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                       <div className="flex gap-2">
                         <button onClick={() => startEdit(m)} className="text-xs px-3 py-1 rounded border">{t(locale, "admin.products.list.edit")}</button>
                         <button onClick={() => onDelete(id)} className="text-xs px-3 py-1 rounded border border-red-500 text-red-600">{t(locale, "admin.products.list.delete")}</button>
