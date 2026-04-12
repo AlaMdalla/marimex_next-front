@@ -22,9 +22,9 @@ export default async function ContactPage() {
         <section className="p-6 rounded-xl border bg-background">
           <h2 className="text-2xl font-semibold mb-4">{t(locale, "contact.reachUs")}</h2>
           <ul className="space-y-3 text-muted-foreground">
-            <li><span className="font-medium text-foreground">{t(locale, "contact.address")}:</span> Tunis, Tunisia</li>
-            <li><span className="font-medium text-foreground">{t(locale, "contact.phone")}:</span> +216 12 345 678</li>
-            <li><span className="font-medium text-foreground">{t(locale, "contact.email")}:</span> hello@marimex.tn</li>
+            <li><span className="font-medium text-foreground">{t(locale, "contact.address")}:</span> Route Raquée en face supérette, B. Icf #7 et Comptou Barhoumi se, Distribution Aluminium</li>
+            <li><span className="font-medium text-foreground">{t(locale, "contact.phone")}:</span> 99.349.228 / 99.747.724</li>
+            <li><span className="font-medium text-foreground">{t(locale, "contact.email")}:</span> marimex.commercial@gmail.com</li>
           </ul>
         </section>
 
